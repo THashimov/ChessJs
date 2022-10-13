@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --boardSize: 70vh;
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.chessBoard {
+    display: grid;
+    grid-template-columns: repeat(8, auto);
+    width: var(--boardSize);
+    height: var(--boardSize);
+
+}
+
+.cell {
+    border: 1px dotted black;
+}
