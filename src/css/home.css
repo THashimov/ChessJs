@@ -14,6 +14,7 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
+    background-color: rgb(55, 155, 155);
 }
 
 .chessBoard {
@@ -26,7 +27,14 @@
     display:flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+}
+
+.black  {
+    background-color: black;
+}
+
+.white {
+    background-color: white;
 }
 
 .cell img {
