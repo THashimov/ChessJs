@@ -5,7 +5,7 @@
 }
 
 :root {
-    --boardSize: 70vh;
+    --cellSize: 80px
 }
 
 .home {
@@ -18,12 +18,19 @@
 
 .chessBoard {
     display: grid;
-    grid-template-columns: repeat(8, auto);
-    width: var(--boardSize);
-    height: var(--boardSize);
-
+    grid-template-columns: repeat(8, var(--cellSize));
+    grid-template-rows: repeat(8, var(--cellSize));
 }
 
 .cell {
-    border: 1px dotted black;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.cell img {
+    object-fit: cover;
+    width: 100%;
+    max-height: 100%;
 }
