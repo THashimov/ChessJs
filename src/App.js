@@ -1,9 +1,9 @@
-import ChessBoard from './components/chessBoard';
+import GameLogic from './components/gameLogic';
 
 function App() {
   return (
     <div className="home">
-      <ChessBoard />
+      <GameLogic />
     </div>
   );
 }
