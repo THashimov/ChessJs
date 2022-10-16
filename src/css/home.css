@@ -30,11 +30,11 @@
 }
 
 .black  {
-    background-color: black;
+    background-color: rgb(150, 2, 2);
 }
 
 .white {
-    background-color: white;
+    background-color: rgb(177, 177, 177);
 }
 
 .cell img {

@@ -1,16 +1,16 @@
 class Rook {
     color: string;
     imgSrc: string;
-    key: number;
+    coord: number [];
 
 
     constructor (
         color: string,
-        key: number
+        coord: number []
     ) {
         this.color = color;
         this.imgSrc = '/assets/rook_' + color + '.png';
-        this.key = key;
+        this.coord = coord;
     }
 }
 
