@@ -4,7 +4,7 @@ class Pawn {
     coord: number [];
     key: number;
     type: string;
-    possibleMoves: number [];
+    possibleMoves: number [][];
     hasMoved: boolean;
  
     constructor (
@@ -17,12 +17,12 @@ class Pawn {
         this.coord = coord;
         this.key = key;
         this.type = 'pawn';
-        this.possibleMoves = [this.coord[0] - 2, this.coord[1]]
+        this.possibleMoves = [[this.coord[0] - 1, this.coord[1]], [this.coord[0] - 2, this.coord[1]]]
     }
 
     hasMadeFirstMove = () => {
         this.hasMoved = true;
-        this.possibleMoves = [this.coord[0] - 1, this.coord[1]]
+        this.possibleMoves = [[this.coord[0] - 1, this.coord[1]]]
     }
 }
 
