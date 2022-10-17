@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import ChessBoard from "../classes/ChessBoard";
+import getCoordsOfClick from "./getCoordsOfClick";
+import getPieceClicked from "./getPieceClicked";
+import Piece from '../classes/Pieces'
+import Bishop from "../classes/Bishop";
+import King from "../classes/King";
+import Knight from "../classes/Knight";
+import Pawn from "../classes/Pawn";
+import Queen from "../classes/Queen";
+import Rook from "../classes/Rook";
 
 interface BoardProps {
     chessBoard: ChessBoard;
@@ -8,18 +17,29 @@ interface BoardProps {
 const Board: React.FC<BoardProps> = (prop) => {
     // Change state to force a re-render
     const [state, setState] = useState<boolean>(false);
-    let boardCells: JSX.Element [] = [];
+    let boardCells: JSX.Element [][] = [];
     const numberOfCells: number = 8;
     let key: number = 0;
     prop.chessBoard.updateBoard();
 
-    const handleClick = (e) => {
-        console.log(e.target.getAttribute('data-value'))
-        prop.chessBoard.whitePieces.pieces.bishop[0].coord = [3, 4];
+    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, src: string ) => {
+        const coordsClicked: number [] = getCoordsOfClick(e, src);
+        const pieceClicked: Bishop | King | Knight | Pawn | Queen | Rook | null = 
+        getPieceClicked(src, coordsClicked, prop.chessBoard.whitePieces.pieces);
+        if (pieceClicked) {
+            if (pieceClicked.type == 'pawn') {
+                const key: number = pieceClicked.key;
+                prop.chessBoard.whitePieces.pieces.pawn[key].coord[0] -= 1;
+
+            }
+            prop.chessBoard.updateBoard();
+        }
+
         state? setState(false) : setState(true)
     }   
 
     for (let i = 0; i < numberOfCells; i++) {
+        let rowCells: JSX.Element [] = []
         for (let j = 0; j < numberOfCells; j++) {
             let whichClass: string = 'cell';
             let src: string = '';
@@ -44,13 +64,15 @@ const Board: React.FC<BoardProps> = (prop) => {
                 }
             }
 
-            const cell: JSX.Element = <div className={whichClass} data-value={key} key={key} onClick={(e) => {handleClick(e)}}>
-                                        <img src={src} alt=''></img>
-                                      </div>
+            const cell: JSX.Element = 
+                <div className={whichClass} data-value={[i, j]} key={key} onClick={(e) => {handleClick(e, src)}}>
+                    <img src={src} alt=''></img>
+                </div>
             
-            boardCells.push(cell);
+            rowCells.push(cell);
             key += 1;
         }
+        boardCells.push(rowCells);
     }
     return (
         <div className='chessBoard'>

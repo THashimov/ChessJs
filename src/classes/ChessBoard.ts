@@ -27,7 +27,22 @@ class ChessBoard {
         }
     }
 
+    resetBoard = () => {
+        this.cells = [];
+
+        // Init the whole board as null
+        for (let i = 0; i < 8; i++){
+            let arr: any [] = [];
+
+            for (let j = 0; j < 8; j++) {
+                arr.push(null)
+            }
+            this.cells.push(arr);
+        }
+    }
+
     updateBoard = () => {
+        this.resetBoard();
         for (let i = 0; i < 2; i++) {
             let col = this.blackPieces.pieces.rook[i].coord[0];
             let row = this.blackPieces.pieces.rook[i].coord[1];
@@ -73,6 +88,7 @@ class ChessBoard {
         row = this.blackPieces.pieces.queen.coord[1];
         this.cells[col][row] = this.blackPieces.pieces.queen;
     }
+
 }
 
 export default ChessBoard;

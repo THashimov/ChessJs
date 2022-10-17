@@ -9,10 +9,7 @@ interface GameLogic {
  
 const GameLogic: React.FC<GameLogic> = () => {
     const chessBoard = new ChessBoard();
-    
     const board = <Board chessBoard={chessBoard}/>;
-
-    console.log(board.props.chessBoard.whitePieces);
 
     return ( 
         <div className="game">
