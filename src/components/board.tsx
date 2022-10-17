@@ -9,6 +9,7 @@ import Knight from "../classes/Knight";
 import Pawn from "../classes/Pawn";
 import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
+import possibleMoves from "./possibleMoves";
 
 interface BoardProps {
     chessBoard: ChessBoard;
@@ -22,17 +23,13 @@ const Board: React.FC<BoardProps> = (prop) => {
     let key: number = 0;
     prop.chessBoard.updateBoard();
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, src: string ) => {
+    const handleClick = (e, src: string ) => {
         const coordsClicked: number [] = getCoordsOfClick(e, src);
         const pieceClicked: Bishop | King | Knight | Pawn | Queen | Rook | null = 
         getPieceClicked(src, coordsClicked, prop.chessBoard.whitePieces.pieces);
-        if (pieceClicked) {
-            if (pieceClicked.type == 'pawn') {
-                const key: number = pieceClicked.key;
-                prop.chessBoard.whitePieces.pieces.pawn[key].coord[0] -= 1;
 
-            }
-            prop.chessBoard.updateBoard();
+        if (pieceClicked) {
+            const x = possibleMoves(pieceClicked)
         }
 
         state? setState(false) : setState(true)

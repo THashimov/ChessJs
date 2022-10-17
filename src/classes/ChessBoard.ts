@@ -88,7 +88,6 @@ class ChessBoard {
         row = this.blackPieces.pieces.queen.coord[1];
         this.cells[col][row] = this.blackPieces.pieces.queen;
     }
-
 }
 
 export default ChessBoard;

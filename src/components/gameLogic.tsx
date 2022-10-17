@@ -1,6 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import ChessBoard from '../classes/ChessBoard';
-import Pieces from '../classes/Pieces';
 import Board from './board'
 
 interface GameLogic {

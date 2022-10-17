@@ -37,6 +37,10 @@
     background-color: rgb(177, 177, 177);
 }
 
+.possibleMove {
+    background-color: green;
+}
+
 .cell img {
     object-fit: cover;
     width: 100%;
