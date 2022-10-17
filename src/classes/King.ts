@@ -4,6 +4,7 @@ class King {
     coord: number [];
     key: number;
     type: string;
+    possibleMoves: number [];
 
 
     constructor (
@@ -13,10 +14,10 @@ class King {
     ) {
         this.color = color;
         this.imgSrc = '/assets/king_' + color + '.png';
-        this.key = key;
         this.coord = coord;
         this.key = key;
         this.type = 'king';
+        this.possibleMoves = [this.coord[0] - 1, this.coord[0] + 1, this.coord[1] - 1, this.coord[1] + 1];
     }
 }
 

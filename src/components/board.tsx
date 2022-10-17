@@ -27,7 +27,6 @@ const Board: React.FC<BoardProps> = (prop) => {
         const coordsClicked: number [] = getCoordsOfClick(e, src);
         const pieceClicked: Bishop | King | Knight | Pawn | Queen | Rook | null = 
         getPieceClicked(src, coordsClicked, prop.chessBoard.whitePieces.pieces);
-
         if (pieceClicked) {
             const x = possibleMoves(pieceClicked)
         }

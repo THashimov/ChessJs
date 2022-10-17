@@ -6,7 +6,7 @@ class Pawn {
     type: string;
     possibleMoves: number [];
     hasMoved: boolean;
-
+ 
     constructor (
         color: string,
         coord: number [],
@@ -20,7 +20,7 @@ class Pawn {
         this.possibleMoves = [this.coord[0] - 2, this.coord[1]]
     }
 
-    updateCords = () => {
+    hasMadeFirstMove = () => {
         this.hasMoved = true;
         this.possibleMoves = [this.coord[0] - 1, this.coord[1]]
     }
