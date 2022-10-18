@@ -7,40 +7,87 @@ import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
 
 const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, chessBoard: ChessBoard) => {
-    // Clear every possible move class
+    // Clear the board
     [...document.querySelectorAll('.possibleMove')].map(e => e.classList.remove('possibleMove'));
 
-    console.log(chessBoard.cells)
-    // Show all possible moves.
-   
+    // Bishop has 4 directions of movement
+    // Once we hit a piece, we could break from this and check the next direction
+    // How do we represent this?
+
+
+    // Testing a deeper array
+    // Possible moves is an array with 4 elements
+    // Those 4 elements have 6 elements inside them
+    // Those 6 elements hold a coord
+
+
+    // Bishop is at [4, 7]
+
+    // 
+
     for (let i = 0; i < piece.possibleMoves.length; i++) {
-        let col = piece.possibleMoves[i][1] % 8;
-        let row = piece.possibleMoves[i][0] % 8;
+        for (let j = 0; j < piece.possibleMoves[i].length; j++) {
 
-        if (row < 0) {
-            continue;
-        };        
-        if (col < 0) {
-            continue;
-        };
+            let col = piece.possibleMoves[i][j][1];
+            let row = piece.possibleMoves[i][j][0];
 
-
-        // if (row >= 0) {
             // let cell = document.querySelector(`[data-value="${row},${col}"]`)
-            // cell?.classList.add('possibleMove')
-        // }
-        // console.log(col)
+            // cell?.classList.add('yellow')
 
-        console.log(chessBoard.cells[col][row].color);
+            console.log('col :', col);
+            console.log('row :', row);
+
+            if (row < 0 || row > 7) {
+                break;
+            } else if (col < 0 || col > 7) {
+                break;
+            }
+
+            
 
 
-        if (chessBoard.cells[col][row]) {
+            if (chessBoard.cells[row][col] === null) {
+                let cell = document.querySelector(`[data-value="${row},${col}"]`)
+                cell?.classList.add('possibleMove')
+            } else {
+                break;
+            }   
 
-            continue;
-        } else {
-            let cell = document.querySelector(`[data-value="${row},${col}"]`)
-            cell?.classList.add('possibleMove')
         }
+
+
+
+
+
+
+
+
+
+        // let col = piece.possibleMoves[i][1] % 8;
+        // let row = piece.possibleMoves[i][0] % 8;
+
+        // if (row < 0) {
+        //     continue;
+        // };        
+        // if (col < 0) {
+        //     continue;
+        // };
+
+     
+        
+
+        // // if (row >= 0) {
+        //     // let cell = document.querySelector(`[data-value="${row},${col}"]`)
+        //     // cell?.classList.add('possibleMove')
+        // // }
+        // // console.log(col)
+
+        // if (chessBoard.cells[row][col] === null) {
+        //     let cell = document.querySelector(`[data-value="${row},${col}"]`)
+        //     cell?.classList.add('possibleMove')
+        // } else {
+        //     continue;
+        // }
     }
 
 }

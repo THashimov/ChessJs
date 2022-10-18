@@ -41,6 +41,10 @@
     background-color: green;
 }
 
+.yellow {
+    background-color: yellow;
+}
+
 .cell img {
     object-fit: cover;
     width: 100%;

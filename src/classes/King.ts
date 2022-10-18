@@ -4,7 +4,7 @@ class King {
     coord: number [];
     key: number;
     type: string;
-    possibleMoves: number [][];
+    possibleMoves: number [][][];
 
     constructor (
         color: string,
@@ -17,7 +17,12 @@ class King {
         this.key = key;
         this.type = 'king';
         this.possibleMoves = 
-        [[this.coord[0] - 1, this.coord[1]], [this.coord[0] + 1, this.coord[1]], [this.coord[0], this.coord[1] - 1], [this.coord[0], this.coord[1] + 1]];
+        [
+            [[this.coord[0] - 1, this.coord[1]]],
+            [[this.coord[0] + 1, this.coord[1]]],
+            [[this.coord[0], this.coord[1] - 1]],
+            [[this.coord[0], this.coord[1] + 1]]
+        ];
     }
 }
 
