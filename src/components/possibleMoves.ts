@@ -49,7 +49,9 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
             if (chessBoard.cells[row][col] === null) {
                 let cell = document.querySelector(`[data-value="${row},${col}"]`)
                 cell?.classList.add('possibleMove')
-            } else {
+            } else if (chessBoard.cells[row][col].color === 'black'){
+                let cell = document.querySelector(`[data-value="${row},${col}"]`)
+                cell?.classList.add('yellow')
                 break;
             }   
 
