@@ -30,6 +30,7 @@ const movePiece = (e, pieces: {bishop: Bishop [], king: King [], knight: Knight 
     for (const i in pieces.pawn) {
         if (pieces.pawn[i].isSelected) {
             pieces.pawn[i].coord = [parseInt(col), parseInt(row)];
+            pieces.pawn[i].hasMadeFirstMove = true;
             pieces.pawn[i].updatePossibleMoves();
         };
     };

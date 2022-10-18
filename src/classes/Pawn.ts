@@ -6,6 +6,7 @@ class Pawn {
     type: string;
     possibleMoves: number [][][];
     isSelected: boolean;
+    hasMadeFirstMove: boolean;
 
  
     constructor (
@@ -19,27 +20,29 @@ class Pawn {
         this.key = key;
         this.type = 'pawn';
         this.isSelected = false;
+        this.hasMadeFirstMove = false;
     };
 
-    hasMadeFirstMove = () => {
-        this.possibleMoves = 
-        [
-            [
-                [this.coord[0] - 1, this.coord[1]]
-            ] 
-        ]
-    };
 
     updatePossibleMoves() {
-        this.possibleMoves = 
-        [
-            [
-                [this.coord[0] - 1, this.coord[1]]
-            ], 
-            [
-                [this.coord[0] - 2, this.coord[1]]
-            ]
-        ];
+        if (this.hasMadeFirstMove) {
+            this.possibleMoves = 
+                [
+                    [
+                        [this.coord[0] - 1, this.coord[1]]
+                    ] 
+                ]
+        } else {
+            this.possibleMoves =
+                [
+                    [
+                        [this.coord[0] - 1, this.coord[1]]
+                    ], 
+                    [
+                        [this.coord[0] - 2, this.coord[1]]
+                    ]
+                ];
+    }
     }
 }
 
