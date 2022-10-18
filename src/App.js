@@ -1,13 +1,14 @@
 import Board from './components/board';
 import ChessBoard from './classes/ChessBoard';
-import { useState } from 'react';
+import { useRef } from 'react';
 
 function App() {
   const chessBoard = new ChessBoard();
+  const selectedPiece = useRef(undefined);
   
   return (
     <div className="home">
-      <Board chessBoard={chessBoard} />
+      <Board chessBoard={chessBoard} selectedPiece={selectedPiece}/>
     </div>
   );
 }

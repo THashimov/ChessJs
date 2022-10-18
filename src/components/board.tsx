@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import ChessBoard from "../classes/ChessBoard";
 import getPieceClicked from "./getPieceClicked";
 import Bishop from "../classes/Bishop";
@@ -9,10 +9,12 @@ import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
 import possibleMoves from "./possibleMoves";
 import movePiece from "./movePiece";
-import resetSelection from "./resetSelection";
 
 interface BoardProps {
     chessBoard: ChessBoard;
+    selectedPiece: React.MutableRefObject<
+                Bishop | King | Knight | Pawn | Queen | Rook | undefined
+                >
 }
  
 const Board: React.FC<BoardProps> = (prop) => {
@@ -34,12 +36,10 @@ const Board: React.FC<BoardProps> = (prop) => {
         getPieceClicked(src, coordsClicked, prop.chessBoard.whitePieces.pieces);
 
         if (pieceClicked) {
-            possibleMoves(pieceClicked, prop.chessBoard)
+            possibleMoves(pieceClicked, prop.chessBoard);
+            prop.selectedPiece.current = pieceClicked;
         } else if (e.target.className.includes('possibleMove') || (e.target.parentNode.className.includes('canTake'))) {
-            movePiece(e, prop.chessBoard.whitePieces.pieces)
-            resetSelection(prop.chessBoard.whitePieces.pieces)
-        } else {
-            resetSelection(prop.chessBoard.whitePieces.pieces)
+            movePiece(e, prop.selectedPiece.current)
         }
 
         state ? setState(false) : setState(true)

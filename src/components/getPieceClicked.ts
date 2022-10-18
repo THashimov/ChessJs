@@ -11,7 +11,6 @@ const getPieceClicked = (
             for (const i in pieces.bishop) {
                 if (pieces.bishop[i].coord[0] == row) {
                     if (pieces.bishop[i].coord[1] == col) {
-                        pieces.bishop[i].isSelected = true;
                         return pieces.bishop[i];
                     }
                 }
@@ -20,7 +19,6 @@ const getPieceClicked = (
             for (const i in pieces.king) {
                 if (pieces.king[i].coord[0] == row) {
                     if (pieces.king[i].coord[1] == col) {
-                        pieces.king[i].isSelected = true;
                         return pieces.king[i];
                     }
                 }
@@ -30,7 +28,6 @@ const getPieceClicked = (
             for (const i in pieces.knight) {
                 if (pieces.knight[i].coord[0] == row) {
                     if (pieces.knight[i].coord[1] == col) {
-                        pieces.knight[i].isSelected = true;
                         return pieces.knight[i];
                     }
                 }
@@ -39,7 +36,6 @@ const getPieceClicked = (
             for (const i in pieces.pawn) {
                 if (pieces.pawn[i].coord[0] == row) {
                     if (pieces.pawn[i].coord[1] == col) {
-                        pieces.pawn[i].isSelected = true;
                         return pieces.pawn[i];
                     }
                 }
@@ -48,7 +44,6 @@ const getPieceClicked = (
             for (const i in pieces.queen) {
                 if (pieces.queen[i].coord[0] == row) {
                     if (pieces.queen[i].coord[1] == col) {
-                        pieces.queen[i].isSelected = true;
                         return pieces.queen[i];
                     }
                 }
@@ -58,7 +53,6 @@ const getPieceClicked = (
             for (const i in pieces.rook) {
                 if (pieces.rook[i].coord[0] == row) {
                     if (pieces.rook[i].coord[1] == col) {
-                        pieces.rook[i].isSelected = true;
                         return pieces.rook[i];
                     }
                 }

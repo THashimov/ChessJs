@@ -5,8 +5,6 @@ class Queen {
     key: number;
     type: string;
     possibleMoves: number [][][];
-    isSelected: boolean;
-
 
     constructor (
         color: string,
@@ -18,7 +16,6 @@ class Queen {
         this.coord = coord;
         this.key = key;
         this.type = 'queen';
-        this.isSelected = false;
     };
 
     updatePossibleMoves() {

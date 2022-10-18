@@ -22,21 +22,6 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
                 break;
             }
 
-            // 5 4
-
-            // 4 4
-            // 6 4
-            // 5 3
-            // 5 5
-
-            // col row
-
-            // 4 4
-            // 3 4
-            // 5 4
-            // 3 4
-            // 3 5
-
             if (chessBoard.cells[row][col] === null) {
                 let cell = document.querySelector(`[data-value="${row},${col}"]`)
                 cell?.classList.add('possibleMove')

@@ -5,8 +5,6 @@ class Bishop {
     key: number;
     type: string;
     possibleMoves: number [][][];
-    isSelected: boolean;
-
 
     constructor (
         color: string,
@@ -18,7 +16,6 @@ class Bishop {
         this.coord = coord;
         this.key = key;
         this.type = 'bishop';
-        this.isSelected = false;
     }
 
     updatePossibleMoves () {

@@ -5,9 +5,7 @@ class Pawn {
     key: number;
     type: string;
     possibleMoves: number [][][];
-    isSelected: boolean;
     hasMadeFirstMove: boolean;
-
  
     constructor (
         color: string,
@@ -19,7 +17,6 @@ class Pawn {
         this.coord = coord;
         this.key = key;
         this.type = 'pawn';
-        this.isSelected = false;
         this.hasMadeFirstMove = false;
     };
 
