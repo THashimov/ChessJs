@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ChessBoard from "../classes/ChessBoard";
 import getCoordsOfClick from "./getCoordsOfClick";
 import getPieceClicked from "./getPieceClicked";
-import Piece from '../classes/Pieces'
 import Bishop from "../classes/Bishop";
 import King from "../classes/King";
 import Knight from "../classes/Knight";
@@ -28,7 +27,7 @@ const Board: React.FC<BoardProps> = (prop) => {
         const pieceClicked: Bishop | King | Knight | Pawn | Queen | Rook | null = 
         getPieceClicked(src, coordsClicked, prop.chessBoard.whitePieces.pieces);
         if (pieceClicked) {
-            const x = possibleMoves(pieceClicked)
+            const x = possibleMoves(pieceClicked, prop.chessBoard)
         }
 
         state? setState(false) : setState(true)

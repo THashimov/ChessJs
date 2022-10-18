@@ -1,25 +1,46 @@
-const possibleMoves = (piece) => {
+import Bishop from "../classes/Bishop";
+import ChessBoard from "../classes/ChessBoard";
+import King from "../classes/King";
+import Knight from "../classes/Knight";
+import Pawn from "../classes/Pawn";
+import Queen from "../classes/Queen";
+import Rook from "../classes/Rook";
+
+const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, chessBoard: ChessBoard) => {
     // Clear every possible move class
     [...document.querySelectorAll('.possibleMove')].map(e => e.classList.remove('possibleMove'));
 
-       // if (pieceClicked.type == 'pawn') {
-            //     const key: number = pieceClicked.key;
-            //     prop.chessBoard.whitePieces.pieces.pawn[key].coord[0] -= 1;
-
-            // }
-            // prop.chessBoard.updateBoard();
-
-        // Get 
-        // const col = coordsClicked[0];
-        // const row = coordsClicked[1];
-        // let cell = document.querySelector(`[data-value="${col},${row}"]`)
-        // cell?.classList.add('possibleMove')
-
+    console.log(chessBoard.cells)
+    // Show all possible moves.
+   
     for (let i = 0; i < piece.possibleMoves.length; i++) {
-        const col = piece.possibleMoves[i][0];
-        const row = piece.possibleMoves[i][1];
-        let cell = document.querySelector(`[data-value="${col},${row}"]`)
-        cell?.classList.add('possibleMove')
+        let col = piece.possibleMoves[i][1] % 8;
+        let row = piece.possibleMoves[i][0] % 8;
+
+        if (row < 0) {
+            continue;
+        };        
+        if (col < 0) {
+            continue;
+        };
+
+
+        // if (row >= 0) {
+            // let cell = document.querySelector(`[data-value="${row},${col}"]`)
+            // cell?.classList.add('possibleMove')
+        // }
+        // console.log(col)
+
+        console.log(chessBoard.cells[col][row].color);
+
+
+        if (chessBoard.cells[col][row]) {
+
+            continue;
+        } else {
+            let cell = document.querySelector(`[data-value="${row},${col}"]`)
+            cell?.classList.add('possibleMove')
+        }
     }
 
 }
