@@ -5,6 +5,8 @@ class King {
     key: number;
     type: string;
     possibleMoves: number [][][];
+    isSelected: boolean;
+
 
     constructor (
         color: string,
@@ -16,12 +18,16 @@ class King {
         this.coord = coord;
         this.key = key;
         this.type = 'king';
+        this.isSelected = false;
+    }
+
+    updatePossibleMoves() {
         this.possibleMoves = 
         [
             [[this.coord[0] - 1, this.coord[1]]],
             [[this.coord[0] + 1, this.coord[1]]],
-            [[this.coord[0], this.coord[1] - 1]],
-            [[this.coord[0], this.coord[1] + 1]]
+            [[this.coord[0], this.coord[1] + 1]],
+            [[this.coord[0], this.coord[1] - 1]]
         ];
     }
 }

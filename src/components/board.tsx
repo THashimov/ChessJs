@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ChessBoard from "../classes/ChessBoard";
-import getCoordsOfClick from "./getCoordsOfClick";
 import getPieceClicked from "./getPieceClicked";
 import Bishop from "../classes/Bishop";
 import King from "../classes/King";
@@ -9,6 +8,8 @@ import Pawn from "../classes/Pawn";
 import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
 import possibleMoves from "./possibleMoves";
+import movePiece from "./movePiece";
+import resetSelection from "./resetSelection";
 
 interface BoardProps {
     chessBoard: ChessBoard;
@@ -23,14 +24,25 @@ const Board: React.FC<BoardProps> = (prop) => {
     prop.chessBoard.updateBoard();
 
     const handleClick = (e, src: string ) => {
-        const coordsClicked: number [] = getCoordsOfClick(e, src);
+        const coordsClicked: number [] = 
+        [
+        e.target.parentNode.getAttribute('data-value') ? e.target.parentNode.getAttribute('data-value')[0] : e.target.getAttribute('data-value')[0],
+        e.target.parentNode.getAttribute('data-value') ? e.target.parentNode.getAttribute('data-value')[2] : e.target.getAttribute('data-value')[2]
+        ];
+
         const pieceClicked: Bishop | King | Knight | Pawn | Queen | Rook | null = 
         getPieceClicked(src, coordsClicked, prop.chessBoard.whitePieces.pieces);
+
         if (pieceClicked) {
-            const x = possibleMoves(pieceClicked, prop.chessBoard)
+            possibleMoves(pieceClicked, prop.chessBoard)
+        } else if (e.target.className.includes('possibleMove') || (e.target.parentNode.className.includes('canTake'))) {
+            movePiece(e, prop.chessBoard.whitePieces.pieces)
+            resetSelection(prop.chessBoard.whitePieces.pieces)
+        } else {
+            resetSelection(prop.chessBoard.whitePieces.pieces)
         }
 
-        state? setState(false) : setState(true)
+        state ? setState(false) : setState(true)
     }   
 
     for (let i = 0; i < numberOfCells; i++) {
@@ -41,7 +53,6 @@ const Board: React.FC<BoardProps> = (prop) => {
             if (prop.chessBoard.cells[i][j] != null) {
                 src = prop.chessBoard.cells[i][j].imgSrc;
             }
-
 
             // Check for odd or even using bitwise
             // If you OR a number by 1 and it's higher than itself, it is even

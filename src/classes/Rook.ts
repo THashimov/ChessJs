@@ -5,6 +5,8 @@ class Rook {
     key: number;
     type: string;
     possibleMoves: number [][][];
+    isSelected: boolean;
+
 
     constructor (
         color: string,
@@ -16,6 +18,10 @@ class Rook {
         this.coord = coord;
         this.key = key;
         this.type = 'rook';
+        this.isSelected = false;
+    };
+
+    updatePossibleMoves() {
         this.possibleMoves = 
         [
             [
@@ -54,7 +60,7 @@ class Rook {
                 [this.coord[0], this.coord[1] - 6],
                 [this.coord[0], this.coord[1] - 7]
             ]
-        ]
+        ];
     }
 }
 

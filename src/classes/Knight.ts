@@ -5,6 +5,8 @@ class Knight {
     key: number;
     type: string;
     possibleMoves: number [][][];
+    isSelected: boolean;
+
 
 
     constructor (
@@ -17,6 +19,10 @@ class Knight {
         this.coord = coord;
         this.key = key;
         this.type = 'knight';
+        this.isSelected = false;
+    }
+
+    updatePossibleMoves() {
         this.possibleMoves = 
         [
             [
@@ -43,7 +49,7 @@ class Knight {
             [
                 [this.coord[0] + 1, this.coord[1] + 2]
             ]
-        ]
+        ];
     }
 }
 

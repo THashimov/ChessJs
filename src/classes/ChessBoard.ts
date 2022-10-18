@@ -41,52 +41,99 @@ class ChessBoard {
         }
     }
 
+    populateWhitePieces = () => {
+        for (const i in this.whitePieces.pieces.rook) {
+            const col = this.whitePieces.pieces.rook[i].coord[0];
+            const row = this.whitePieces.pieces.rook[i].coord[1];
+            this.cells[col][row] = this.whitePieces.pieces.rook[i];
+            this.whitePieces.pieces.rook[i].updatePossibleMoves();
+        };
+
+        for (const i in this.whitePieces.pieces.knight) {
+            const col = this.whitePieces.pieces.knight[i].coord[0];
+            const row = this.whitePieces.pieces.knight[i].coord[1];
+            this.cells[col][row] = this.whitePieces.pieces.knight[i];
+            this.whitePieces.pieces.knight[i].updatePossibleMoves();
+        };
+
+        for (const i in this.whitePieces.pieces.bishop) {
+            const col = this.whitePieces.pieces.bishop[i].coord[0];
+            const row = this.whitePieces.pieces.bishop[i].coord[1];
+            this.cells[col][row] = this.whitePieces.pieces.bishop[i];
+            this.whitePieces.pieces.bishop[i].updatePossibleMoves();
+        };
+
+        for (const i in this.whitePieces.pieces.pawn) {
+            const col = this.whitePieces.pieces.pawn[i].coord[0];
+            const row = this.whitePieces.pieces.pawn[i].coord[1];
+            this.cells[col][row] = this.whitePieces.pieces.pawn[i];
+            this.whitePieces.pieces.pawn[i].updatePossibleMoves();
+        }
+
+        for (const i in this.whitePieces.pieces.king) {
+            const col = this.whitePieces.pieces.king[i].coord[0];
+            const row = this.whitePieces.pieces.king[i].coord[1];
+            this.cells[col][row] = this.whitePieces.pieces.king[i];
+            this.whitePieces.pieces.king[i].updatePossibleMoves();
+        }
+        
+        for (const i in this.whitePieces.pieces.queen) {
+            const col = this.whitePieces.pieces.queen[i].coord[0];
+            const row = this.whitePieces.pieces.queen[i].coord[1];
+            this.cells[col][row] = this.whitePieces.pieces.queen[i];
+            this.whitePieces.pieces.queen[i].updatePossibleMoves();
+        }
+
+    }
+
+    populateBlackPieces = () => {
+        for (const i in this.blackPieces.pieces.rook) {
+            const col = this.blackPieces.pieces.rook[i].coord[0];
+            const row = this.blackPieces.pieces.rook[i].coord[1];
+            this.cells[col][row] = this.blackPieces.pieces.rook[i];
+            this.blackPieces.pieces.rook[i].updatePossibleMoves();
+        };
+
+        for (const i in this.blackPieces.pieces.knight) {
+            const col = this.blackPieces.pieces.knight[i].coord[0];
+            const row = this.blackPieces.pieces.knight[i].coord[1];
+            this.cells[col][row] = this.blackPieces.pieces.knight[i];
+            this.blackPieces.pieces.knight[i].updatePossibleMoves();
+        };
+
+        for (const i in this.blackPieces.pieces.bishop) {
+            const col = this.blackPieces.pieces.bishop[i].coord[0];
+            const row = this.blackPieces.pieces.bishop[i].coord[1];
+            this.cells[col][row] = this.blackPieces.pieces.bishop[i];
+            this.blackPieces.pieces.bishop[i].updatePossibleMoves();
+        };
+
+        for (const i in this.blackPieces.pieces.pawn) {
+            const col = this.blackPieces.pieces.pawn[i].coord[0];
+            const row = this.blackPieces.pieces.pawn[i].coord[1];
+            this.cells[col][row] = this.blackPieces.pieces.pawn[i];
+            this.blackPieces.pieces.pawn[i].updatePossibleMoves();
+        }
+
+        for (const i in this.blackPieces.pieces.king) {
+            const col = this.blackPieces.pieces.king[i].coord[0];
+            const row = this.blackPieces.pieces.king[i].coord[1];
+            this.cells[col][row] = this.blackPieces.pieces.king[i];
+            this.blackPieces.pieces.king[i].updatePossibleMoves();
+        }
+
+        for (const i in this.blackPieces.pieces.queen) {
+            const col = this.blackPieces.pieces.queen[i].coord[0];
+            const row = this.blackPieces.pieces.queen[i].coord[1];
+            this.cells[col][row] = this.blackPieces.pieces.queen[i];
+            this.blackPieces.pieces.queen[i].updatePossibleMoves();
+        }
+    }
+
     updateBoard = () => {
         this.resetBoard();
-        for (let i = 0; i < 2; i++) {
-            let col = this.blackPieces.pieces.rook[i].coord[0];
-            let row = this.blackPieces.pieces.rook[i].coord[1];
-            this.cells[col][row] = this.blackPieces.pieces.rook[i];
-            col = this.blackPieces.pieces.knight[i].coord[0];
-            row = this.blackPieces.pieces.knight[i].coord[1];
-            this.cells[col][row] = this.blackPieces.pieces.knight[i];
-            col = this.blackPieces.pieces.bishop[i].coord[0];
-            row = this.blackPieces.pieces.bishop[i].coord[1];
-            this.cells[col][row] = this.blackPieces.pieces.bishop[i];
-
-            col = this.whitePieces.pieces.rook[i].coord[0];
-            row = this.whitePieces.pieces.rook[i].coord[1];
-            this.cells[col][row] = this.whitePieces.pieces.rook[i];
-            col = this.whitePieces.pieces.knight[i].coord[0];
-            row = this.whitePieces.pieces.knight[i].coord[1];
-            this.cells[col][row] = this.whitePieces.pieces.knight[i];
-            col = this.whitePieces.pieces.bishop[i].coord[0];
-            row = this.whitePieces.pieces.bishop[i].coord[1];
-            this.cells[col][row] = this.whitePieces.pieces.bishop[i];
-        }
-
-        for (let i = 0; i < 8; i++) {
-            let col = this.blackPieces.pieces.pawn[i].coord[0];
-            let row = this.blackPieces.pieces.pawn[i].coord[1];
-            this.cells[col][row] = this.blackPieces.pieces.pawn[i];
-            col = this.whitePieces.pieces.pawn[i].coord[0];
-            row = this.whitePieces.pieces.pawn[i].coord[1];
-            this.cells[col][row] = this.whitePieces.pieces.pawn[i];
-        }
-
-        let col = this.whitePieces.pieces.king.coord[0];
-        let row = this.whitePieces.pieces.king.coord[1];
-        this.cells[col][row] = this.whitePieces.pieces.king;
-        col = this.whitePieces.pieces.queen.coord[0];
-        row = this.whitePieces.pieces.queen.coord[1];
-        this.cells[col][row] = this.whitePieces.pieces.queen;
-
-        col = this.blackPieces.pieces.king.coord[0];
-        row = this.blackPieces.pieces.king.coord[1];
-        this.cells[col][row] = this.blackPieces.pieces.king;
-        col = this.blackPieces.pieces.queen.coord[0];
-        row = this.blackPieces.pieces.queen.coord[1];
-        this.cells[col][row] = this.blackPieces.pieces.queen;
+        this.populateBlackPieces();
+        this.populateWhitePieces();
     }
 }
 

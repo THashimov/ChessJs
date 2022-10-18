@@ -7,13 +7,11 @@ import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
 
 const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, chessBoard: ChessBoard) => {
-    // Clear the board
     [...document.querySelectorAll('.possibleMove')].map(e => e.classList.remove('possibleMove'));
     [...document.querySelectorAll('.canTake')].map(e => e.classList.remove('canTake'));
 
-
-    for (let i = 0; i < piece.possibleMoves.length; i++) {
-        for (let j = 0; j < piece.possibleMoves[i].length; j++) {
+    for (const i in piece.possibleMoves) {
+        for (const j in piece.possibleMoves[i]) {
 
             let col = piece.possibleMoves[i][j][1];
             let row = piece.possibleMoves[i][j][0];
@@ -24,23 +22,28 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
                 break;
             }
 
+            // 5 4
+
+            // 4 4
+            // 6 4
+            // 5 3
+            // 5 5
+
+            // col row
+
+            // 4 4
+            // 3 4
+            // 5 4
+            // 3 4
+            // 3 5
+
             if (chessBoard.cells[row][col] === null) {
                 let cell = document.querySelector(`[data-value="${row},${col}"]`)
                 cell?.classList.add('possibleMove')
             } else if (chessBoard.cells[row][col].color === 'black'){
-                if (piece.type === 'pawn') {
-                    let offset: number = 1;
-                    for (let i = 0; i < 2; i++) {
-                        let cell = document.querySelector(`[data-value="${row},${col - offset}"]`)
-                        cell?.classList.add('canTake');
-                        offset *= (-1);
-                    }
-                    break;
-                } else {
-                    let cell = document.querySelector(`[data-value="${row},${col}"]`)
-                    cell?.classList.add('canTake');
-                    break;
-                }
+                let cell = document.querySelector(`[data-value="${row},${col}"]`)
+                cell?.classList.add('canTake');
+                break;
             } else {
                 break;
             }
