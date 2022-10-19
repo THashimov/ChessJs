@@ -21,17 +21,28 @@ class Pawn {
         this.hasMadeFirstMove = false;
     };
 
-
     updatePossibleMoves() {
+        this.updatePossibleAttacks();
+
         if (this.hasMadeFirstMove) {
-            this.possibleMoves = 
+            if (this.color === 'white') {
+                this.possibleMoves = 
                 [
                     [
                         [this.coord[0] - 1, this.coord[1]]
                     ] 
                 ]
+            } else {
+                this.possibleMoves = 
+                [
+                    [
+                        [this.coord[0] + 1, this.coord[1]]
+                    ] 
+                ]
+            }
         } else {
-            this.possibleMoves =
+            if (this.color === 'white') {
+                this.possibleMoves =
                 [
                     [
                         [this.coord[0] - 1, this.coord[1]]
@@ -40,16 +51,44 @@ class Pawn {
                         [this.coord[0] - 2, this.coord[1]]
                     ]
                 ];
+            } else {
+                this.possibleMoves = 
+                [
+                    [
+                        [this.coord[0] + 1, this.coord[1]]
+                    ], 
+                    [
+                        [this.coord[0] + 2, this.coord[1]]
+                    ]
+                ];
+            }
+          
         }
-        this.possibleAttacks = 
-        [
-            [
-                [this.coord[0] - 1, this.coord[1] - 1]
-            ], 
-            [
-                [this.coord[0] - 1, this.coord[1] + 1]
-            ]
-        ];
+        
+    }
+
+    updatePossibleAttacks() {
+        if (this.color === 'white') {
+            this.possibleAttacks = 
+                [
+                    [
+                        [this.coord[0] - 1, this.coord[1] - 1]
+                    ], 
+                    [
+                        [this.coord[0] - 1, this.coord[1] + 1]
+                    ]
+                ];
+        } else {
+            this.possibleAttacks = 
+                [
+                    [
+                        [this.coord[0] + 1, this.coord[1] - 1]
+                    ], 
+                    [
+                        [this.coord[0] + 1, this.coord[1] + 1]
+                    ]
+                ];
+        }
     }
 }
 
