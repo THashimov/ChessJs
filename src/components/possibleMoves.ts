@@ -9,9 +9,17 @@ import Rook from "../classes/Rook";
 const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, chessBoard: ChessBoard, whiteTurn: boolean) => {
     [...document.querySelectorAll('.possibleMove')].map(e => e.classList.remove('possibleMove'));
     [...document.querySelectorAll('.canTake')].map(e => e.classList.remove('canTake'));
+    [...document.querySelectorAll('.selected')].map(e => e.classList.remove('selected'));
 
     const oppColor: string = whiteTurn ? 'black' : 'white'
 
+    let selectedCol: number = piece.coord[1];
+    let selectedRow: number = piece.coord[0];
+
+    let cell = document.querySelector(`[data-value="${selectedRow},${selectedCol}"]`)
+    cell?.classList.add('selected')
+
+    
     for (const i in piece.possibleMoves) {
         for (const j in piece.possibleMoves[i]) {
 
@@ -26,24 +34,38 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
 
             if (piece.type === 'pawn') {
                 if (chessBoard.cells[row][col] === null) {
-                    let cell = document.querySelector(`[data-value="${row},${col}"]`)
+                    const cell = document.querySelector(`[data-value="${row},${col}"]`)
                     cell?.classList.add('possibleMove')
                 } 
+
                 for (const i in piece.possibleAttacks) {
-                    let row = piece.possibleAttacks[i][0][0];
-                    let col = piece.possibleAttacks[i][0][1];
+                    const row = piece.possibleAttacks[i][0][0];
+                    const col = piece.possibleAttacks[i][0][1];
                     if (chessBoard.cells[row][col] && chessBoard.cells[row][col].color === oppColor) {
-                        let cell = document.querySelector(`[data-value="${row},${col}"]`)
-                        cell?.classList.add('canTake')
-                    }
+                        const cell = document.querySelector(`[data-value="${row},${col}"]`);
+                        cell?.classList.add('canTake');
+                    } else {
+                            try {
+                                let colorIndex: number = whiteTurn ? -1 : 1;
+                                if (chessBoard.cells[row - (1 * colorIndex)][col].color === oppColor) {
+                                    if (piece.enPassantAllowed) {
+                                        const passantRow = chessBoard.cells[row - (1 * colorIndex)][col].coord[0];
+                                        const passantCol = chessBoard.cells[row - (1 * colorIndex)][col].coord[1];
+                                        const cell = document.querySelector(`[data-value="${passantRow + (1 * colorIndex)},${passantCol}"]`);
+                                        cell?.classList.add('canTake');
+                                    }
+                                } 
+                            } catch {
+                            }
+                    };
                 }
             }
 
             if (piece.type !== 'pawn' && chessBoard.cells[row][col] === null) {
-                let cell = document.querySelector(`[data-value="${row},${col}"]`)
-                cell?.classList.add('possibleMove')
+                const cell = document.querySelector(`[data-value="${row},${col}"]`);
+                cell?.classList.add('possibleMove');
             } else if (piece.type !== 'pawn' && chessBoard.cells[row][col].color === oppColor ){
-                let cell = document.querySelector(`[data-value="${row},${col}"]`)
+                const cell = document.querySelector(`[data-value="${row},${col}"]`);
                 cell?.classList.add('canTake');
                 break;
             } else {

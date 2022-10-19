@@ -6,6 +6,7 @@ class Queen {
     type: string;
     possibleMoves: number [][][];
     possibleAttacks: number [][][];
+    enPassantAllowed: boolean;
 
     constructor (
         color: string,

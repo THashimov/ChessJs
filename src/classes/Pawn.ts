@@ -7,6 +7,7 @@ class Pawn {
     possibleMoves: number [][][];
     possibleAttacks: number [][][];
     hasMadeFirstMove: boolean;
+    enPassantAllowed: boolean;
  
     constructor (
         color: string,
@@ -19,6 +20,7 @@ class Pawn {
         this.key = key;
         this.type = 'pawn';
         this.hasMadeFirstMove = false;
+        this.enPassantAllowed = false;
     };
 
     updatePossibleMoves() {

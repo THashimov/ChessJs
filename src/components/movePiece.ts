@@ -1,12 +1,24 @@
+import setEnPassant from "./setEnPassant";
+
 const movePiece = (e, prop) => {
     const col = e.target.parentNode.getAttribute('data-value') ? e.target.parentNode.getAttribute('data-value')[0] : e.target.getAttribute('data-value')[0];
     const row = e.target.parentNode.getAttribute('data-value') ? e.target.parentNode.getAttribute('data-value')[2] : e.target.getAttribute('data-value')[2];
+    let coordClicked = [parseInt(col), parseInt(row)]
 
-    const coordClicked = [parseInt(col), parseInt(row)]
     prop.selectedPiece.current.coord = coordClicked;
     const pieceAttacked = prop.chessBoard.cells[coordClicked[0]][coordClicked[1]] ? prop.chessBoard.cells[coordClicked[0]][coordClicked[1]].type : '';
 
     if (prop.whiteTurn.current) {
+        if (prop.selectedPiece.current.enPassantAllowed) {
+            coordClicked[0] += 1;
+            for (const i in prop.chessBoard.blackPieces.pieces.pawn) {
+                const coordOfOtherPiece = prop.chessBoard.blackPieces.pieces.pawn[i].coord;
+                if (coordOfOtherPiece[0] === coordClicked[0] && coordOfOtherPiece[1] === coordClicked[1]) {
+                    delete prop.chessBoard.blackPieces.pieces.pawn[i];
+                }
+            }
+            coordClicked[0] -= 1;
+        }
         for (const i in prop.chessBoard.blackPieces.pieces[pieceAttacked]) {
             const coordOfOtherPiece = prop.chessBoard.blackPieces.pieces[pieceAttacked][i].coord;
             if (coordOfOtherPiece[0] === coordClicked[0] && coordOfOtherPiece[1] === coordClicked[1]) {
@@ -14,6 +26,16 @@ const movePiece = (e, prop) => {
             }
         }
     } else {
+        if (prop.selectedPiece.current.enPassantAllowed) { 
+            coordClicked[0] -= 1;
+            for (const i in prop.chessBoard.whitePieces.pieces.pawn) {
+                const coordOfOtherPiece = prop.chessBoard.whitePieces.pieces.pawn[i].coord;
+                if (coordOfOtherPiece[0] === coordClicked[0] && coordOfOtherPiece[1] === coordClicked[1]) {
+                    delete prop.chessBoard.whitePieces.pieces.pawn[i];
+                }
+            }
+            coordClicked[0] += 1;
+        } 
         for (const i in prop.chessBoard.whitePieces.pieces[pieceAttacked]) {
             const coordOfOtherPiece = prop.chessBoard.whitePieces.pieces[pieceAttacked][i].coord;
             if (coordOfOtherPiece[0] === coordClicked[0] && coordOfOtherPiece[1] === coordClicked[1]) {
@@ -26,8 +48,11 @@ const movePiece = (e, prop) => {
         prop.selectedPiece.current.hasMadeFirstMove = true;
     }
 
+    setEnPassant(prop);
+
     [...document.querySelectorAll('.possibleMove')].map(e => e.classList.remove('possibleMove'));
     [...document.querySelectorAll('.canTake')].map(e => e.classList.remove('canTake'));
+    [...document.querySelectorAll('.selected')].map(e => e.classList.remove('selected'));
 }
 
 export default movePiece;

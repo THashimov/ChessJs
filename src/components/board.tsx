@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ChessBoard from "../classes/ChessBoard";
 import getPieceClicked from "./getPieceClicked";
 import Bishop from "../classes/Bishop";
@@ -9,6 +9,7 @@ import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
 import possibleMoves from "./possibleMoves";
 import movePiece from "./movePiece";
+import setEnPassant from "./setEnPassant";
 
 interface BoardProps {
     chessBoard: ChessBoard;
@@ -16,6 +17,9 @@ interface BoardProps {
                 Bishop | King | Knight | Pawn | Queen | Rook | undefined
                 >;
     whiteTurn: React.MutableRefObject<boolean>;
+    prevPiece: React.MutableRefObject<
+                Bishop | King | Knight | Pawn | Queen | Rook | undefined
+                >;
 }
  
 const Board: React.FC<BoardProps> = (prop) => {
@@ -26,6 +30,12 @@ const Board: React.FC<BoardProps> = (prop) => {
     const numberOfCells: number = 8;
     let key: number = 0;
     prop.chessBoard.updateBoard();
+
+    useEffect(() => {
+        if (prop.selectedPiece.current) {
+            prop.prevPiece.current = prop.selectedPiece.current;
+        }
+    }, [prop.whiteTurn.current]);
 
     const handleClick = (e, src: string ) => {
         const coordsClicked: number [] = 
@@ -42,17 +52,16 @@ const Board: React.FC<BoardProps> = (prop) => {
         if (pieceClicked) {
             possibleMoves(pieceClicked, prop.chessBoard, prop.whiteTurn.current);
             prop.selectedPiece.current = pieceClicked;
-        } else if (e.target.className.includes('possibleMove') || (e.target.parentNode.className.includes('canTake'))) {
+        } else if (
+            e.target.className.includes('possibleMove') || 
+            e.target.parentNode.className.includes('canTake') ||
+            e.target.className.includes('canTake')) {
             movePiece(e, prop)
             prop.whiteTurn.current ? prop.whiteTurn.current = false : prop.whiteTurn.current = true;
         }
 
         state ? setState(false) : setState(true)
     };
-
-
-
-
 
     for (let i = 0; i < numberOfCells; i++) {
         let rowCells: JSX.Element [] = []
@@ -89,6 +98,7 @@ const Board: React.FC<BoardProps> = (prop) => {
         }
         boardCells.push(rowCells);
     }
+
     return (
         <div className='chessBoard'>
             {boardCells}

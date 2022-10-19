@@ -45,6 +45,10 @@
     background-color: yellow;
 }
 
+.selected {
+    background-color: aqua;
+}
+
 .cell img {
     object-fit: cover;
     width: 100%;
