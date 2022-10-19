@@ -22,10 +22,15 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
                 break;
             }
 
-            if (chessBoard.cells[row][col] === null) {
+            if (chessBoard.cells[row][col] === null && piece.type !== 'pawn') {
                 let cell = document.querySelector(`[data-value="${row},${col}"]`)
                 cell?.classList.add('possibleMove')
-            } else if (chessBoard.cells[row][col].color === 'black'){
+            } else if (piece.type === 'pawn') {
+                if (chessBoard.cells[row][col]) {
+                    let cell = document.querySelector(`[data-value="${row},${col}"]`)
+                    cell?.classList.add('canTake');
+                }
+            } else if (chessBoard.cells[row][col].color === 'black' && piece.type !== 'pawn'){
                 let cell = document.querySelector(`[data-value="${row},${col}"]`)
                 cell?.classList.add('canTake');
                 break;

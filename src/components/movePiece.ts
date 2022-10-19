@@ -4,6 +4,10 @@ const movePiece = (e, prop) => {
 
     prop.coord = [parseInt(col), parseInt(row)];
 
+    if (prop.type === 'pawn') {
+        prop.hasMadeFirstMove = true;
+    }
+
     [...document.querySelectorAll('.possibleMove')].map(e => e.classList.remove('possibleMove'));
     [...document.querySelectorAll('.canTake')].map(e => e.classList.remove('canTake'));
 }

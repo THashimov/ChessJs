@@ -33,7 +33,7 @@ class Pieces {
             let pawn: Pawn [] = [];
 
             for (let i = 0; i < 8; i++) {
-                pawn.push(new Pawn(color, [6, i], i))
+                pawn.push(new Pawn(color, [3, i], i))
             }
 
             this.pieces = {bishop, king, knight, queen, rook, pawn};
