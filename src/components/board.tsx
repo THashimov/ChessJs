@@ -14,12 +14,14 @@ interface BoardProps {
     chessBoard: ChessBoard;
     selectedPiece: React.MutableRefObject<
                 Bishop | King | Knight | Pawn | Queen | Rook | undefined
-                >
+                >;
+    whiteTurn: React.MutableRefObject<boolean>;
 }
  
 const Board: React.FC<BoardProps> = (prop) => {
     // Change state to force a re-render
     const [state, setState] = useState<boolean>(false);
+
     let boardCells: JSX.Element [][] = [];
     const numberOfCells: number = 8;
     let key: number = 0;
@@ -32,18 +34,25 @@ const Board: React.FC<BoardProps> = (prop) => {
         e.target.parentNode.getAttribute('data-value') ? e.target.parentNode.getAttribute('data-value')[2] : e.target.getAttribute('data-value')[2]
         ];
 
-        const pieceClicked: Bishop | King | Knight | Pawn | Queen | Rook | null = 
-        getPieceClicked(src, coordsClicked, prop.chessBoard.whitePieces.pieces);
+        const pieceClicked: Bishop | King | Knight | Pawn | Queen | Rook | null =
+        prop.whiteTurn.current ? 
+        getPieceClicked(src, coordsClicked, prop.chessBoard.whitePieces.pieces) :
+        getPieceClicked(src, coordsClicked, prop.chessBoard.blackPieces.pieces);
 
         if (pieceClicked) {
-            possibleMoves(pieceClicked, prop.chessBoard);
+            possibleMoves(pieceClicked, prop.chessBoard, prop.whiteTurn.current);
             prop.selectedPiece.current = pieceClicked;
         } else if (e.target.className.includes('possibleMove') || (e.target.parentNode.className.includes('canTake'))) {
-            movePiece(e, prop.selectedPiece.current, prop.chessBoard)
+            movePiece(e, prop)
+            prop.whiteTurn.current ? prop.whiteTurn.current = false : prop.whiteTurn.current = true;
         }
 
         state ? setState(false) : setState(true)
-    }   
+    };
+
+
+
+
 
     for (let i = 0; i < numberOfCells; i++) {
         let rowCells: JSX.Element [] = []

@@ -6,9 +6,11 @@ import Pawn from "../classes/Pawn";
 import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
 
-const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, chessBoard: ChessBoard) => {
+const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, chessBoard: ChessBoard, whiteTurn: boolean) => {
     [...document.querySelectorAll('.possibleMove')].map(e => e.classList.remove('possibleMove'));
     [...document.querySelectorAll('.canTake')].map(e => e.classList.remove('canTake'));
+
+    const oppColor: string = whiteTurn ? 'black' : 'white'
 
     for (const i in piece.possibleMoves) {
         for (const j in piece.possibleMoves[i]) {
@@ -30,7 +32,7 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
                 for (const i in piece.possibleAttacks) {
                     let row = piece.possibleAttacks[i][0][0];
                     let col = piece.possibleAttacks[i][0][1];
-                    if (chessBoard.cells[row][col] && chessBoard.cells[row][col].color === 'black') {
+                    if (chessBoard.cells[row][col] && chessBoard.cells[row][col].color === oppColor) {
                         let cell = document.querySelector(`[data-value="${row},${col}"]`)
                         cell?.classList.add('canTake')
                     }
@@ -40,7 +42,7 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
             if (piece.type !== 'pawn' && chessBoard.cells[row][col] === null) {
                 let cell = document.querySelector(`[data-value="${row},${col}"]`)
                 cell?.classList.add('possibleMove')
-            } else if (piece.type !== 'pawn' && chessBoard.cells[row][col].color === 'black' ){
+            } else if (piece.type !== 'pawn' && chessBoard.cells[row][col].color === oppColor ){
                 let cell = document.querySelector(`[data-value="${row},${col}"]`)
                 cell?.classList.add('canTake');
                 break;
