@@ -3,7 +3,6 @@ const getPieceClicked = (
     coordsClicked: number [], 
     pieces
     ) => {
-    if (src.includes('white')) {
         const row: number = coordsClicked[0];
         const col: number = coordsClicked[1];
 
@@ -60,7 +59,6 @@ const getPieceClicked = (
         } else {
             return null
         }
-    }
 }
 
 export default getPieceClicked;

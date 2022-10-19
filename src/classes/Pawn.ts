@@ -5,6 +5,7 @@ class Pawn {
     key: number;
     type: string;
     possibleMoves: number [][][];
+    possibleAttacks: number [][][];
     hasMadeFirstMove: boolean;
  
     constructor (
@@ -39,7 +40,16 @@ class Pawn {
                         [this.coord[0] - 2, this.coord[1]]
                     ]
                 ];
-    }
+        }
+        this.possibleAttacks = 
+        [
+            [
+                [this.coord[0] - 1, this.coord[1] - 1]
+            ], 
+            [
+                [this.coord[0] - 1, this.coord[1] + 1]
+            ]
+        ];
     }
 }
 

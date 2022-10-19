@@ -5,6 +5,7 @@ class Rook {
     key: number;
     type: string;
     possibleMoves: number [][][];
+    possibleAttacks: number [][][];
 
     constructor (
         color: string,

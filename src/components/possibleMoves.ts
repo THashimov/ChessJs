@@ -22,22 +22,25 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
                 break;
             }
 
-            if (chessBoard.cells[row][col] === null) {
-                let cell = document.querySelector(`[data-value="${row},${col}"]`)
-                cell?.classList.add('possibleMove')
-            } else if (piece.type === 'pawn') {
-                if (chessBoard.cells[row][col]) {
-                    console.log(' :', piece.possibleMoves[0][0][0]);
-                    if (piece.possibleMoves[0][0][0] === row ){
-                        let offset: number = -1;
-                        for (let i = 0; i < 2; i ++) {
-                            let cell = document.querySelector(`[data-value="${row},${col + offset}"]`)
-                            cell?.classList.add('canTake');
-                            offset *= (-1)
-                        }
+            if (piece.type === 'pawn') {
+                if (chessBoard.cells[row][col] === null) {
+                    let cell = document.querySelector(`[data-value="${row},${col}"]`)
+                    cell?.classList.add('possibleMove')
+                } 
+                for (const i in piece.possibleAttacks) {
+                    let row = piece.possibleAttacks[i][0][0];
+                    let col = piece.possibleAttacks[i][0][1];
+                    if (chessBoard.cells[row][col] && chessBoard.cells[row][col].color === 'black') {
+                        let cell = document.querySelector(`[data-value="${row},${col}"]`)
+                        cell?.classList.add('canTake')
                     }
                 }
-            } else if (chessBoard.cells[row][col].color === 'black' && piece.type !== 'pawn'){
+            }
+
+            if (piece.type !== 'pawn' && chessBoard.cells[row][col] === null) {
+                let cell = document.querySelector(`[data-value="${row},${col}"]`)
+                cell?.classList.add('possibleMove')
+            } else if (piece.type !== 'pawn' && chessBoard.cells[row][col].color === 'black' ){
                 let cell = document.querySelector(`[data-value="${row},${col}"]`)
                 cell?.classList.add('canTake');
                 break;

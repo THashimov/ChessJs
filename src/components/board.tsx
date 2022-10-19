@@ -39,7 +39,7 @@ const Board: React.FC<BoardProps> = (prop) => {
             possibleMoves(pieceClicked, prop.chessBoard);
             prop.selectedPiece.current = pieceClicked;
         } else if (e.target.className.includes('possibleMove') || (e.target.parentNode.className.includes('canTake'))) {
-            movePiece(e, prop.selectedPiece.current)
+            movePiece(e, prop.selectedPiece.current, prop.chessBoard)
         }
 
         state ? setState(false) : setState(true)
