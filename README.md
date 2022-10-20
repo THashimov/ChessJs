@@ -66,7 +66,7 @@ There are a few dependancies so you will need npm installed
 
 1. Clone the repo
    ```sh
-   git clone git@github.com:THashimov/ReactiveRecipes.git
+   git clone git@github.com:THashimov/ChessJs.git
    ```
 2. Run with npm
    ```sh
