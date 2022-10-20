@@ -7,12 +7,12 @@ const movePiece = (e, prop) => {
     let coordClicked = [parseInt(col), parseInt(row)]
     const pieceAttacked = prop.chessBoard.cells[coordClicked[0]][coordClicked[1]] ? prop.chessBoard.cells[coordClicked[0]][coordClicked[1]].type : '';
 
-    prop.selectedPiece.current.coord = coordClicked;
+    prop.curPiece.current.coord = coordClicked;
 
 
     // Maybe we can tidy this up a little as it's hard to follow
     if (prop.whiteTurn.current) {
-        if (prop.selectedPiece.current.enPassantAllowed) {
+        if (prop.curPiece.current.enPassantAllowed) {
             coordClicked[0] += 1;
             for (const i in prop.chessBoard.blackPieces.pieces.pawn) {
                 const coordOfOtherPiece = prop.chessBoard.blackPieces.pieces.pawn[i].coord;
@@ -29,7 +29,7 @@ const movePiece = (e, prop) => {
             }
         }
     } else {
-        if (prop.selectedPiece.current.enPassantAllowed) { 
+        if (prop.curPiece.current.enPassantAllowed) { 
             coordClicked[0] -= 1;
             for (const i in prop.chessBoard.whitePieces.pieces.pawn) {
                 const coordOfOtherPiece = prop.chessBoard.whitePieces.pieces.pawn[i].coord;
@@ -47,12 +47,6 @@ const movePiece = (e, prop) => {
         }
     }
     
-    // if (prop.selectedPiece.current.type === 'pawn') {
-    //     prop.selectedPiece.current.hasMadeFirstMove = true;
-    // }
-
-    setEnPassant(prop);
-
     [...document.querySelectorAll('.possibleMove')].map(e => e.classList.remove('possibleMove'));
     [...document.querySelectorAll('.canTake')].map(e => e.classList.remove('canTake'));
     [...document.querySelectorAll('.selected')].map(e => e.classList.remove('selected'));

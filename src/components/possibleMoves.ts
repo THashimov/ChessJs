@@ -6,12 +6,12 @@ import Pawn from "../classes/Pawn";
 import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
 
-const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, chessBoard: ChessBoard, whiteTurn: boolean) => {
+const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, prop) => {
     [...document.querySelectorAll('.possibleMove')].map(e => e.classList.remove('possibleMove'));
     [...document.querySelectorAll('.canTake')].map(e => e.classList.remove('canTake'));
     [...document.querySelectorAll('.selected')].map(e => e.classList.remove('selected'));
 
-    const oppColor: string = whiteTurn ? 'black' : 'white'
+    const oppColor: string = prop.whiteTurn.current ? 'black' : 'white'
 
     let selectedCol: number = piece.coord[1];
     let selectedRow: number = piece.coord[0];
@@ -26,6 +26,7 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
             let col = piece.possibleMoves[i][j][1];
             let row = piece.possibleMoves[i][j][0];
 
+            // Ensure we don't index past the bounds of the arrays
             if (row < 0 || row > 7) {
                 break;
             } else if (col < 0 || col > 7) {
@@ -33,7 +34,7 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
             }
 
             if (piece.type === 'pawn') {
-                if (chessBoard.cells[row][col] === null) {
+                if (prop.chessBoard.cells[row][col] === null) {
                     const cell = document.querySelector(`[data-value="${row},${col}"]`)
                     cell?.classList.add('possibleMove')
                 } 
@@ -41,19 +42,19 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
                 for (const i in piece.possibleAttacks) {
                     const row = piece.possibleAttacks[i][0][0];
                     const col = piece.possibleAttacks[i][0][1];
-                    if (chessBoard.cells[row][col] && chessBoard.cells[row][col].color === oppColor) {
+                    if (prop.chessBoard.cells[row][col] && prop.chessBoard.cells[row][col].color === oppColor) {
                         const cell = document.querySelector(`[data-value="${row},${col}"]`);
                         cell?.classList.add('canTake');
                     } else {
                             try {
-                                let colorIndex: number = whiteTurn ? -1 : 1;
-                                if (chessBoard.cells[row - (1 * colorIndex)][col].color === oppColor) {
-                                    if (piece.enPassantAllowed) {
-                                        const passantRow = chessBoard.cells[row - (1 * colorIndex)][col].coord[0];
-                                        const passantCol = chessBoard.cells[row - (1 * colorIndex)][col].coord[1];
-                                        const cell = document.querySelector(`[data-value="${passantRow + (1 * colorIndex)},${passantCol}"]`);
-                                        cell?.classList.add('canTake');
-                                    }
+                                let colorIndex: number = prop.whiteTurn.current ? -1 : 1;
+                                if (prop.chessBoard.cells[row - (1 * colorIndex)][col].color === oppColor && 
+                                    prop.chessBoard.cells[row - (1 * colorIndex)][col].enPassantAllowed)
+                                {
+                                    const passantRow = prop.chessBoard.cells[row - (1 * colorIndex)][col].coord[0];
+                                    const passantCol = prop.chessBoard.cells[row - (1 * colorIndex)][col].coord[1];
+                                    const cell = document.querySelector(`[data-value="${passantRow + (1 * colorIndex)},${passantCol}"]`);
+                                    cell?.classList.add('canTake');
                                 } 
                             } catch {
                             }
@@ -61,10 +62,10 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, ches
                 }
             }
 
-            if (piece.type !== 'pawn' && chessBoard.cells[row][col] === null) {
+            if (piece.type !== 'pawn' && prop.chessBoard.cells[row][col] === null) {
                 const cell = document.querySelector(`[data-value="${row},${col}"]`);
                 cell?.classList.add('possibleMove');
-            } else if (piece.type !== 'pawn' && chessBoard.cells[row][col].color === oppColor ){
+            } else if (piece.type !== 'pawn' && prop.chessBoard.cells[row][col].color === oppColor ){
                 const cell = document.querySelector(`[data-value="${row},${col}"]`);
                 cell?.classList.add('canTake');
                 break;

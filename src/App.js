@@ -5,13 +5,13 @@ import { useState } from 'react';
 
 function App() {
   const chessBoard = new ChessBoard();
-  const selectedPiece = useRef(undefined);
+  const curPiece = useRef(undefined);
   const prevPiece = useRef(undefined);
   const whiteTurn = useRef(true);
   
   return (
     <div className="home">
-      <Board chessBoard={chessBoard} selectedPiece={selectedPiece} whiteTurn={whiteTurn} prevPiece={prevPiece}/>
+      <Board chessBoard={chessBoard} curPiece={curPiece} whiteTurn={whiteTurn} prevPiece={prevPiece}/>
     </div>
   );
 }

@@ -1,13 +1,44 @@
 const setPassantCheck = (prop) => {
-    // If a pawn makes its first move and it lands next to a pawn of opposing color
-    // Set that pawn to en passant true and set it's first move to be true
+    // Reset en passant if enemy player moves
+    if (prop.prevPiece.current && prop.prevPiece.current.enPassantAllowed) {
+        if (prop.prevPiece.current.color === 'black') {
+            for (const i in prop.chessBoard.blackPieces.pieces.pawn) {
+                if (prop.chessBoard.blackPieces.pieces.pawn[i].key === prop.prevPiece.current.key) {
+                    prop.prevPiece.current.enPassantAllowed = false;
+                }
+            }
+        } else {
+            for (const i in prop.chessBoard.whitePieces.pieces.pawn) {
+                if (prop.chessBoard.whitePieces.pieces.pawn[i].key === prop.prevPiece.current.key) {
+                    prop.prevPiece.current.enPassantAllowed = false;
+                }
+            }
+        }
+    }
 
-    // Now when we click on any pawn, it checks the pawns next to it to see if en passant is true
-    // En passant is then reset so it cannot be triggered for that piece again.
-    // To ensure it cannot be set again, we must check if first move has been made
+    const col = prop.curPiece.current.coord[1];
+    const row = prop.curPiece.current.coord[0];
 
-    if (prop.selectedPiece.current.type === 'pawn') {
-        
+    // Check if there is a pawn next to the current pawn and set en passant if it is that pawns first move
+    if (prop.curPiece.current.type === 'pawn') {
+        if (!prop.curPiece.current.hasMadeFirstMove && (prop.chessBoard.cells[row][col - 1] || prop.chessBoard.cells[row][col + 1])) {
+            try {
+                if (prop.chessBoard.cells[row][col - 1].type === 'pawn' &&
+                    prop.chessBoard.cells[row][col - 1].color !== 
+                    prop.curPiece.current.color) {
+                        prop.curPiece.current.enPassantAllowed = true;
+                        prop.prevPiece.current = prop.curPiece.current; 
+                }
+            } catch {
+                if (prop.chessBoard.cells[row][col + 1].type === 'pawn' &&
+                    prop.chessBoard.cells[row][col + 1].color !== 
+                    prop.curPiece.current.color) {
+                        prop.curPiece.current.enPassantAllowed = true;
+                        prop.prevPiece.current = prop.curPiece.current; 
+                }
+            }
+        }
+    prop.curPiece.hasMadeFirstMove = true;
     }
 }
 

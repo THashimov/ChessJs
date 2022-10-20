@@ -9,10 +9,11 @@ import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
 import possibleMoves from "./possibleMoves";
 import movePiece from "./movePiece";
+import setEnPassant from "./setEnPassant";
 
 interface BoardProps {
     chessBoard: ChessBoard;
-    selectedPiece: React.MutableRefObject<
+    curPiece: React.MutableRefObject<
                 Bishop | King | Knight | Pawn | Queen | Rook | undefined
                 >;
     whiteTurn: React.MutableRefObject<boolean>;
@@ -30,19 +31,6 @@ const Board: React.FC<BoardProps> = (prop) => {
     let key: number = 0;
     prop.chessBoard.updateBoard();
 
-    useEffect(() => {
-        // Remove en passant when the next player makes a move
-        if (prop.selectedPiece.current?.enPassantAllowed && 
-            (prop.selectedPiece.current !== prop.prevPiece.current)) {
-            for (const i in prop.chessBoard.whitePieces.pieces.pawn) {
-                prop.chessBoard.whitePieces.pieces.pawn[i].resetEnPassant();
-            }  
-            for (const i in prop.chessBoard.blackPieces.pieces.pawn) {
-                prop.chessBoard.blackPieces.pieces.pawn[i].resetEnPassant();
-            }              
-        } 
-    }, [prop.whiteTurn.current]);
-
     const handleClick = (e, src: string ) => {
         const coordsClicked: number [] = 
         [
@@ -56,17 +44,19 @@ const Board: React.FC<BoardProps> = (prop) => {
         getPieceClicked(src, coordsClicked, prop.chessBoard.blackPieces.pieces);
 
         if (pieceClicked) {
-            possibleMoves(pieceClicked, prop.chessBoard, prop.whiteTurn.current);
-            prop.selectedPiece.current = pieceClicked;
+            possibleMoves(pieceClicked, prop);
+            prop.curPiece.current = pieceClicked;
         } else if (
             e.target.className.includes('possibleMove') || 
             e.target.parentNode.className.includes('canTake') ||
             e.target.className.includes('canTake')) {
             movePiece(e, prop)
             prop.whiteTurn.current ? prop.whiteTurn.current = false : prop.whiteTurn.current = true;
+            setEnPassant(prop);
         }
 
         state ? setState(false) : setState(true)
+
     };
 
     for (let i = 0; i < numberOfCells; i++) {
