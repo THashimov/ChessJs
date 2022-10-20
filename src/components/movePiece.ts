@@ -3,11 +3,14 @@ import setEnPassant from "./setEnPassant";
 const movePiece = (e, prop) => {
     const col = e.target.parentNode.getAttribute('data-value') ? e.target.parentNode.getAttribute('data-value')[0] : e.target.getAttribute('data-value')[0];
     const row = e.target.parentNode.getAttribute('data-value') ? e.target.parentNode.getAttribute('data-value')[2] : e.target.getAttribute('data-value')[2];
-    let coordClicked = [parseInt(col), parseInt(row)]
 
-    prop.selectedPiece.current.coord = coordClicked;
+    let coordClicked = [parseInt(col), parseInt(row)]
     const pieceAttacked = prop.chessBoard.cells[coordClicked[0]][coordClicked[1]] ? prop.chessBoard.cells[coordClicked[0]][coordClicked[1]].type : '';
 
+    prop.selectedPiece.current.coord = coordClicked;
+
+
+    // Maybe we can tidy this up a little as it's hard to follow
     if (prop.whiteTurn.current) {
         if (prop.selectedPiece.current.enPassantAllowed) {
             coordClicked[0] += 1;
@@ -44,9 +47,9 @@ const movePiece = (e, prop) => {
         }
     }
     
-    if (prop.selectedPiece.current.type === 'pawn') {
-        prop.selectedPiece.current.hasMadeFirstMove = true;
-    }
+    // if (prop.selectedPiece.current.type === 'pawn') {
+    //     prop.selectedPiece.current.hasMadeFirstMove = true;
+    // }
 
     setEnPassant(prop);
 

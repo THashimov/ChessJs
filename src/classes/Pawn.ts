@@ -66,7 +66,6 @@ class Pawn {
             }
           
         }
-        
     }
 
     updatePossibleAttacks() {
@@ -91,6 +90,10 @@ class Pawn {
                     ]
                 ];
         }
+    }
+
+    resetEnPassant() {
+        this.enPassantAllowed = false;
     }
 }
 

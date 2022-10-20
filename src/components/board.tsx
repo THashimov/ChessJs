@@ -9,7 +9,6 @@ import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
 import possibleMoves from "./possibleMoves";
 import movePiece from "./movePiece";
-import setEnPassant from "./setEnPassant";
 
 interface BoardProps {
     chessBoard: ChessBoard;
@@ -32,9 +31,16 @@ const Board: React.FC<BoardProps> = (prop) => {
     prop.chessBoard.updateBoard();
 
     useEffect(() => {
-        if (prop.selectedPiece.current) {
-            prop.prevPiece.current = prop.selectedPiece.current;
-        }
+        // Remove en passant when the next player makes a move
+        if (prop.selectedPiece.current?.enPassantAllowed && 
+            (prop.selectedPiece.current !== prop.prevPiece.current)) {
+            for (const i in prop.chessBoard.whitePieces.pieces.pawn) {
+                prop.chessBoard.whitePieces.pieces.pawn[i].resetEnPassant();
+            }  
+            for (const i in prop.chessBoard.blackPieces.pieces.pawn) {
+                prop.chessBoard.blackPieces.pieces.pawn[i].resetEnPassant();
+            }              
+        } 
     }, [prop.whiteTurn.current]);
 
     const handleClick = (e, src: string ) => {

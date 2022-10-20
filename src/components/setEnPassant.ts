@@ -1,23 +1,13 @@
 const setPassantCheck = (prop) => {
-    const row: number = prop.selectedPiece.current.coord[0];
-    const col: number = prop.selectedPiece.current.coord[1];
+    // If a pawn makes its first move and it lands next to a pawn of opposing color
+    // Set that pawn to en passant true and set it's first move to be true
 
-    // Once we set en passant to be true. we could store the piece that triggered it, into prev piece
-    // Now if prev piece changes, en passant is no longer possible
-    // But how do we check that 
-    if (prop.chessBoard.cells[row][col - 1] || prop.chessBoard.cells[row][col + 1]){
-        if (row - 2 === 1 || row + 2 === 6) {
-            try {
-                prop.chessBoard.cells[row][col + 1].enPassantAllowed = true;
-                prop.prevPiece.current = prop.selectedPiece.current;
-            }
-            catch {
-                prop.chessBoard.cells[row][col - 1].enPassantAllowed = true;
-                prop.prevPiece.current = prop.selectedPiece.current;
-            }
-        } 
-    } else {
-        prop.selectedPiece.current.enPassantAllowed = false;
+    // Now when we click on any pawn, it checks the pawns next to it to see if en passant is true
+    // En passant is then reset so it cannot be triggered for that piece again.
+    // To ensure it cannot be set again, we must check if first move has been made
+
+    if (prop.selectedPiece.current.type === 'pawn') {
+        
     }
 }
 
