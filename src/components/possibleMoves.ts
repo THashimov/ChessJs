@@ -1,5 +1,4 @@
 import Bishop from "../classes/Bishop";
-import ChessBoard from "../classes/ChessBoard";
 import King from "../classes/King";
 import Knight from "../classes/Knight";
 import Pawn from "../classes/Pawn";

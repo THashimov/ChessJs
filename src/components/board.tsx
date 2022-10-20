@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState }  from "react";
 import ChessBoard from "../classes/ChessBoard";
 import getPieceClicked from "./getPieceClicked";
 import Bishop from "../classes/Bishop";
@@ -25,6 +25,7 @@ interface BoardProps {
 const Board: React.FC<BoardProps> = (prop) => {
     // Change state to force a re-render
     const [state, setState] = useState<boolean>(false);
+    
 
     let boardCells: JSX.Element [][] = [];
     const numberOfCells: number = 8;

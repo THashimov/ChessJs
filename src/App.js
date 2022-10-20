@@ -1,7 +1,6 @@
 import Board from './components/board';
 import ChessBoard from './classes/ChessBoard';
 import { useRef } from 'react';
-import { useState } from 'react';
 
 function App() {
   const chessBoard = new ChessBoard();
