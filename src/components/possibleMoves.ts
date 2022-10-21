@@ -28,6 +28,7 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, prop
             }
         }
     }
+    
 
     for (const i in piece.possibleMoves) {
         for (const j in piece.possibleMoves[i]) {
