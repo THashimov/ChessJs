@@ -1,7 +1,7 @@
 class Pawn {
     color: string;
     imgSrc: string;
-    coord: number [];
+    coords: number [];
     key: number;
     type: string;
     possibleMoves: number [][][];
@@ -11,12 +11,12 @@ class Pawn {
  
     constructor (
         color: string,
-        coord: number [],
+        coords: number [],
         key: number
     ) {
         this.color = color;
         this.imgSrc = '/assets/pawn_' + color + '.png';
-        this.coord = coord;
+        this.coords = coords;
         this.key = key;
         this.type = 'pawn';
         this.hasMadeFirstMove = false;
@@ -31,14 +31,14 @@ class Pawn {
                 this.possibleMoves = 
                 [
                     [
-                        [this.coord[0] - 1, this.coord[1]]
+                        [this.coords[0] - 1, this.coords[1]]
                     ] 
                 ]
             } else {
                 this.possibleMoves = 
                 [
                     [
-                        [this.coord[0] + 1, this.coord[1]]
+                        [this.coords[0] + 1, this.coords[1]]
                     ] 
                 ]
             }
@@ -47,20 +47,20 @@ class Pawn {
                 this.possibleMoves =
                 [
                     [
-                        [this.coord[0] - 1, this.coord[1]]
+                        [this.coords[0] - 1, this.coords[1]]
                     ], 
                     [
-                        [this.coord[0] - 2, this.coord[1]]
+                        [this.coords[0] - 2, this.coords[1]]
                     ]
                 ];
             } else {
                 this.possibleMoves = 
                 [
                     [
-                        [this.coord[0] + 1, this.coord[1]]
+                        [this.coords[0] + 1, this.coords[1]]
                     ], 
                     [
-                        [this.coord[0] + 2, this.coord[1]]
+                        [this.coords[0] + 2, this.coords[1]]
                     ]
                 ];
             }
@@ -73,20 +73,20 @@ class Pawn {
             this.possibleAttacks = 
                 [
                     [
-                        [this.coord[0] - 1, this.coord[1] - 1]
+                        [this.coords[0] - 1, this.coords[1] - 1]
                     ], 
                     [
-                        [this.coord[0] - 1, this.coord[1] + 1]
+                        [this.coords[0] - 1, this.coords[1] + 1]
                     ]
                 ];
         } else {
             this.possibleAttacks = 
                 [
                     [
-                        [this.coord[0] + 1, this.coord[1] - 1]
+                        [this.coords[0] + 1, this.coords[1] - 1]
                     ], 
                     [
-                        [this.coord[0] + 1, this.coord[1] + 1]
+                        [this.coords[0] + 1, this.coords[1] + 1]
                     ]
                 ];
         }

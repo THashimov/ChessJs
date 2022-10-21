@@ -3,7 +3,7 @@ const movePiece = (e, prop) => {
     const row = e.target.parentNode.getAttribute('data-value') ? e.target.parentNode.getAttribute('data-value')[2] : e.target.getAttribute('data-value')[2];
 
     let coordClicked = [parseInt(col), parseInt(row)]
-    prop.curPiece.current.coord = coordClicked;
+    prop.curPiece.current.coords = coordClicked;
     const classOfCellClicked = e.target.classList.value.includes('canTake') ? e.target.classList.value : e.target.parentNode.classList.value;
 
     if (classOfCellClicked.includes('canTake')) {

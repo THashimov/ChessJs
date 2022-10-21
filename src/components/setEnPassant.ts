@@ -12,11 +12,11 @@ const setPassantCheck = (prop) => {
         }
     }
 
-    const col = prop.curPiece.current.coord[1];
-    const row = prop.curPiece.current.coord[0];
+    const col = prop.curPiece.current.coords[1];
+    const row = prop.curPiece.current.coords[0];
 
     if (prop.curPiece.current.type === 'pawn') {
-        if (prop.curPiece.current.coord[0] === 3 || prop.curPiece.current.coord[0] === 4) {
+        if (prop.curPiece.current.coords[0] === 3 || prop.curPiece.current.coords[0] === 4) {
             if (!prop.curPiece.current.hasMadeFirstMove && (prop.chessBoard.cells[row][col - 1] || prop.chessBoard.cells[row][col + 1])) {
                 try {
                     if (prop.chessBoard.cells[row][col - 1].type === 'pawn' &&

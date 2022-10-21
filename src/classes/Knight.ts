@@ -1,7 +1,7 @@
 class Knight {
     color: string;
     imgSrc: string;
-    coord: number [];
+    coords: number [];
     key: number;
     type: string;
     possibleMoves: number [][][];
@@ -10,12 +10,12 @@ class Knight {
 
     constructor (
         color: string,
-        coord: number [],
+        coords: number [],
         key: number
     ) {
         this.color = color;
         this.imgSrc = '/assets/knight_' + color + '.png';
-        this.coord = coord;
+        this.coords = coords;
         this.key = key;
         this.type = 'knight';
     }
@@ -24,28 +24,28 @@ class Knight {
         this.possibleMoves = 
         [
             [
-                [this.coord[0] - 1, this.coord[1] + 2],
+                [this.coords[0] - 1, this.coords[1] + 2],
             ],
             [
-                [this.coord[0] - 2, this.coord[1] + 1]
+                [this.coords[0] - 2, this.coords[1] + 1]
             ],
             [
-                [this.coord[0] - 2, this.coord[1] - 1],
+                [this.coords[0] - 2, this.coords[1] - 1],
             ],
             [
-                [this.coord[0] - 1, this.coord[1] - 2]
+                [this.coords[0] - 1, this.coords[1] - 2]
             ],
             [
-                [this.coord[0] + 1, this.coord[1] - 2],
+                [this.coords[0] + 1, this.coords[1] - 2],
             ],
             [
-                [this.coord[0] + 2, this.coord[1] - 1]
+                [this.coords[0] + 2, this.coords[1] - 1]
             ],
             [
-                [this.coord[0] + 2, this.coord[1] + 1],
+                [this.coords[0] + 2, this.coords[1] + 1],
             ],
             [
-                [this.coord[0] + 1, this.coord[1] + 2]
+                [this.coords[0] + 1, this.coords[1] + 2]
             ]
         ];
     }

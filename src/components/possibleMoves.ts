@@ -4,6 +4,7 @@ import Knight from "../classes/Knight";
 import Pawn from "../classes/Pawn";
 import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
+import canCastle from "./canCastle";
 
 const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, prop) => {
     [...document.querySelectorAll('.possibleMove')].map(e => e.classList.remove('possibleMove'));
@@ -11,14 +12,23 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, prop
     [...document.querySelectorAll('.selected')].map(e => e.classList.remove('selected'));
 
     const oppColor: string = prop.whiteTurn.current ? 'black' : 'white'
-
-    let selectedCol: number = piece.coord[1];
-    let selectedRow: number = piece.coord[0];
-
+    
+    let selectedCol: number = piece.coords[1];
+    let selectedRow: number = piece.coords[0];
     let cell = document.querySelector(`[data-value="${selectedRow},${selectedCol}"]`)
     cell?.classList.add('selected')
 
+    prop.curPiece.current = piece;
     
+    if (piece.type === 'king') {
+        const newMoves = canCastle(prop);
+        if (newMoves) {
+            for (const i in newMoves) {
+                piece.possibleMoves.push(newMoves[i]);
+            }
+        }
+    }
+
     for (const i in piece.possibleMoves) {
         for (const j in piece.possibleMoves[i]) {
 
@@ -50,8 +60,8 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, prop
                                 if (prop.chessBoard.cells[row - (1 * colorIndex)][col].color === oppColor && 
                                     prop.chessBoard.cells[row - (1 * colorIndex)][col].enPassantAllowed)
                                 {
-                                    const passantRow = prop.chessBoard.cells[row - (1 * colorIndex)][col].coord[0];
-                                    const passantCol = prop.chessBoard.cells[row - (1 * colorIndex)][col].coord[1];
+                                    const passantRow = prop.chessBoard.cells[row - (1 * colorIndex)][col].coords[0];
+                                    const passantCol = prop.chessBoard.cells[row - (1 * colorIndex)][col].coords[1];
                                     const cell = document.querySelector(`[data-value="${passantRow + (1 * colorIndex)},${passantCol}"]`);
                                     cell?.classList.add('canTake');
                                 } 

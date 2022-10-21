@@ -1,7 +1,7 @@
 class King {
     color: string;
     imgSrc: string;
-    coord: number [];
+    coords: number [];
     key: number;
     type: string;
     possibleMoves: number [][][];
@@ -10,12 +10,12 @@ class King {
 
     constructor (
         color: string,
-        coord: number [],
+        coords: number [],
         key: number
     ) {
         this.color = color;
         this.imgSrc = '/assets/king_' + color + '.png';
-        this.coord = coord;
+        this.coords = coords;
         this.key = key;
         this.type = 'king';
     }
@@ -23,10 +23,10 @@ class King {
     updatePossibleMoves() {
         this.possibleMoves = 
         [
-            [[this.coord[0] - 1, this.coord[1]]],
-            [[this.coord[0] + 1, this.coord[1]]],
-            [[this.coord[0], this.coord[1] + 1]],
-            [[this.coord[0], this.coord[1] - 1]]
+            [[this.coords[0] - 1, this.coords[1]]],
+            [[this.coords[0] + 1, this.coords[1]]],
+            [[this.coords[0], this.coords[1] + 1]],
+            [[this.coords[0], this.coords[1] - 1]]
         ];
     }
 }
