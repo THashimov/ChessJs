@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, { useRef, useState }  from "react";
 import ChessBoard from "../classes/ChessBoard";
 import getPieceClicked from "./getPieceClicked";
 import Bishop from "../classes/Bishop";
@@ -12,23 +12,30 @@ import movePiece from "./movePiece";
 import setEnPassant from "./setEnPassant";
 import presetBoard from "./presetBoard";
 import GameFlowControl from "../classes/gameFlowControl";
+import Draw from "./draw";
 
 interface BoardProps {
     chessBoard: ChessBoard;
     gameFlowControl: GameFlowControl;
+    resetGame: React.Dispatch<React.SetStateAction<boolean>>;
 }
  
 const Board: React.FC<BoardProps> = (prop) => {
     // Change state to force a re-render
     const [state, setState] = useState<boolean>(false);
+    let showDrawOption = false;
     
-    presetBoard(prop);
+    // presetBoard(prop);
 
     let boardCells: JSX.Element [][] = [];
     const numberOfCells: number = 8;
     let key: number = 0;
     prop.chessBoard.updateBoard();
 
+    if (prop.gameFlowControl.movesMade === 50) {
+        showDrawOption = true;
+    }
+    
     const handleClick = (e, src: string ) => {
         const coordsClicked: number [] = 
         [
@@ -50,11 +57,6 @@ const Board: React.FC<BoardProps> = (prop) => {
             movePiece(e, prop)
             prop.gameFlowControl.whiteTurn ? prop.gameFlowControl.whiteTurn = false : prop.gameFlowControl.whiteTurn = true;
             setEnPassant(prop);
-        }
-
-        if (prop.gameFlowControl.movesMade === 50) {
-            // Here we want to render a draw option
-            
         }
 
         state ? setState(false) : setState(true)
@@ -98,6 +100,7 @@ const Board: React.FC<BoardProps> = (prop) => {
 
     return (
         <div className='chessBoard'>
+            {showDrawOption && <Draw resetGame={prop.resetGame}/>}
             {boardCells}
         </div>
       );

@@ -15,7 +15,7 @@ class GameFlowControl {
         this.curPiece = undefined;
         this.prevPiece = undefined;
         this.whiteTurn = true;
-        this.movesMade = 49;
+        this.movesMade = 47;
     }
 
     resetMoves() {

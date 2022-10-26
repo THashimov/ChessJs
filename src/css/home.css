@@ -54,3 +54,38 @@
     width: 100%;
     max-height: 100%;
 }
+
+.drawOption {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 640px;
+    min-height: 640px;
+    max-height: 640px;
+    word-wrap: break-word;
+    background-color: rgba(0, 0, 0, 0.750);
+    justify-content: center;
+    text-align: center;
+    color: rgb(55, 155, 155);
+}
+
+.drawOption h1 {
+    padding-top: 2em;
+}
+
+.drawOption button {
+    font-size: 26px;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 20px;
+    border: none;
+    background-color: rgb(55, 155, 155);
+    cursor: pointer;
+}
+
+.drawBtnContainer {
+    display: flex;
+    justify-content: space-around;
+    height: 5em;
+    width: 640px;
+}

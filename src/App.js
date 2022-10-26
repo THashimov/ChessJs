@@ -1,15 +1,22 @@
 import Board from './components/board';
 import ChessBoard from './classes/ChessBoard';
-import { useRef } from 'react';
 import GameFlowControl from './classes/gameFlowControl';
+import { useState } from 'react';
+
 
 function App() {
-  const chessBoard = new ChessBoard();
-  const gameFlowControl = new GameFlowControl();
+  let chessBoard = new ChessBoard();
+  let gameFlowControl = new GameFlowControl();
+  const [resetGame, setResetGame] = useState(false);
+
+  if (resetGame) {
+      chessBoard = new ChessBoard();
+      gameFlowControl = new GameFlowControl();
+  }
   
   return (
     <div className="home">
-      <Board chessBoard={chessBoard} gameFlowControl={gameFlowControl}/>
+      <Board chessBoard={chessBoard} gameFlowControl={gameFlowControl} resetGame={setResetGame}/>
     </div>
   );
 }
