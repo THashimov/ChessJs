@@ -82,7 +82,7 @@ There are a few dependancies so you will need npm installed
 - [X] En passant
 - [ ] 50 move rule
 - [ ] Three fold repetition
-- [ ] Castling
+- [X] Castling
 - [ ] Pawn promotion
 - [ ] Play online against other people
 - [ ] Play against the computer
