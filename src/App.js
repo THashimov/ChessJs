@@ -12,8 +12,9 @@ function App() {
   if (resetGame) {
       chessBoard = new ChessBoard();
       gameFlowControl = new GameFlowControl();
+      setResetGame(false);
   }
-  
+
   return (
     <div className="home">
       <Board chessBoard={chessBoard} gameFlowControl={gameFlowControl} resetGame={setResetGame}/>

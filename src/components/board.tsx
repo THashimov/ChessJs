@@ -13,6 +13,7 @@ import setEnPassant from "./setEnPassant";
 import presetBoard from "./presetBoard";
 import GameFlowControl from "../classes/gameFlowControl";
 import Draw from "./draw";
+import { useEffect } from "react";
 
 interface BoardProps {
     chessBoard: ChessBoard;
@@ -23,6 +24,8 @@ interface BoardProps {
 const Board: React.FC<BoardProps> = (prop) => {
     // Change state to force a re-render
     const [state, setState] = useState<boolean>(false);
+    const [keepPlaying, setKeepPlaying] = useState(false);
+
     let showDrawOption = false;
     
     // presetBoard(prop);
@@ -97,10 +100,14 @@ const Board: React.FC<BoardProps> = (prop) => {
         }
         boardCells.push(rowCells);
     }
+    useEffect(() => {
+        keepPlaying ? showDrawOption = false : showDrawOption = true;
+    }, [keepPlaying])
+
 
     return (
         <div className='chessBoard'>
-            {showDrawOption && <Draw resetGame={prop.resetGame}/>}
+            {showDrawOption && <Draw resetGame={prop.resetGame} keepPlaying={setKeepPlaying} />}
             {boardCells}
         </div>
       );
