@@ -2,16 +2,16 @@ import React from "react";
 
 interface DrawProps {
     resetGame: React.Dispatch<React.SetStateAction<boolean>>;
-    keepPlaying: React.Dispatch<React.SetStateAction<boolean>>;
+    drawMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }
  
 const Draw: React.FC<DrawProps> = (prop) => {
-
     const continueGame = () => {
-        prop.keepPlaying(true)
+        prop.drawMenu(false);
     }
 
     const resetGame = () => {
+        prop.drawMenu(false);
         prop.resetGame(true);
     }
 

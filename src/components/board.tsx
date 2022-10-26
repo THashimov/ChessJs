@@ -13,7 +13,6 @@ import setEnPassant from "./setEnPassant";
 import presetBoard from "./presetBoard";
 import GameFlowControl from "../classes/gameFlowControl";
 import Draw from "./draw";
-import { useEffect } from "react";
 
 interface BoardProps {
     chessBoard: ChessBoard;
@@ -24,10 +23,7 @@ interface BoardProps {
 const Board: React.FC<BoardProps> = (prop) => {
     // Change state to force a re-render
     const [state, setState] = useState<boolean>(false);
-    const [keepPlaying, setKeepPlaying] = useState(false);
-
-    let showDrawOption = false;
-    
+    const [showDrawMenu, setShowDrawMenu] = useState<boolean>(false);
     // presetBoard(prop);
 
     let boardCells: JSX.Element [][] = [];
@@ -36,7 +32,8 @@ const Board: React.FC<BoardProps> = (prop) => {
     prop.chessBoard.updateBoard();
 
     if (prop.gameFlowControl.movesMade === 50) {
-        showDrawOption = true;
+        setShowDrawMenu(true);
+        prop.gameFlowControl.movesMade++;
     }
     
     const handleClick = (e, src: string ) => {
@@ -99,15 +96,11 @@ const Board: React.FC<BoardProps> = (prop) => {
             key += 1;
         }
         boardCells.push(rowCells);
-    }
-    useEffect(() => {
-        keepPlaying ? showDrawOption = false : showDrawOption = true;
-    }, [keepPlaying])
-
+    };
 
     return (
         <div className='chessBoard'>
-            {showDrawOption && <Draw resetGame={prop.resetGame} keepPlaying={setKeepPlaying} />}
+            {showDrawMenu && <Draw resetGame={prop.resetGame} drawMenu={setShowDrawMenu}/> }
             {boardCells}
         </div>
       );

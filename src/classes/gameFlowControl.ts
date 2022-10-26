@@ -10,12 +10,14 @@ class GameFlowControl {
     prevPiece: undefined | Bishop | King | Knight | Pawn | Queen | Rook;
     whiteTurn: boolean;
     movesMade: number;
+    reset: boolean;
 
     constructor() {
         this.curPiece = undefined;
         this.prevPiece = undefined;
         this.whiteTurn = true;
-        this.movesMade = 47;
+        this.movesMade = 0;
+        this.reset = false;
     }
 
     resetMoves() {
@@ -24,6 +26,10 @@ class GameFlowControl {
 
     updateMoves() {
         this.movesMade++;
+    }
+
+    resetGame() {
+        this.reset = true;
     }
 }
 
