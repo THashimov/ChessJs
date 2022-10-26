@@ -10,7 +10,7 @@ import Rook from "../classes/Rook";
 import possibleMoves from "./possibleMoves";
 import movePiece from "./movePiece";
 import setEnPassant from "./setEnPassant";
-import setBoardForCastling from "./setBoardForCastling";
+import presetBoard from "./presetBoard";
 
 interface BoardProps {
     chessBoard: ChessBoard;
@@ -27,7 +27,7 @@ const Board: React.FC<BoardProps> = (prop) => {
     // Change state to force a re-render
     const [state, setState] = useState<boolean>(false);
     
-    setBoardForCastling(prop);
+    presetBoard(prop);
 
     let boardCells: JSX.Element [][] = [];
     const numberOfCells: number = 8;

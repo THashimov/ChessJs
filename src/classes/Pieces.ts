@@ -13,7 +13,7 @@ class Pieces {
         if (color === 'black') {
             const bishop: Bishop [] = [new Bishop(color, [0, 2], 0), new Bishop(color, [0, 5], 1)];
             const king: King [] = [new King(color, [0, 4], 0)];
-            const knight: Knight [] = [new Knight(color, [0, 6], 0), new Knight(color, [0, 1], 1)];
+            const knight: Knight [] = [new Knight(color, [0, 1], 0), new Knight(color, [0, 6], 1)];
             const queen: Queen [] = [new Queen(color, [0, 3], 0)];
             const rook: Rook [] = [new Rook(color, [0, 0], 0), new Rook(color, [0, 7], 1)];
             let pawn: Pawn [] = [];
@@ -27,7 +27,7 @@ class Pieces {
         } else if (color === 'white') {
             const bishop: Bishop [] = [new Bishop(color, [7, 2], 0), new Bishop(color, [7, 5], 1)];
             const king: King [] = [new King(color, [7, 4], 0)];
-            const knight: Knight [] = [new Knight(color, [7, 6], 1), new Knight(color, [7, 1], 0)];
+            const knight: Knight [] = [new Knight(color, [7, 1], 0), new Knight(color, [7, 6], 1)];
             const queen: Queen [] = [new Queen(color, [7, 3], 0)];
             const rook: Rook [] = [new Rook(color, [7, 0], 0), new Rook(color, [7, 7], 1)];
             let pawn: Pawn [] = [];

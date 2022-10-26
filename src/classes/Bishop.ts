@@ -7,6 +7,7 @@ class Bishop {
     possibleMoves: number [][][];
     possibleAttacks: number [][][];
     enPassantAllowed: boolean;
+    hasMadeFirstMove: boolean;
 
     constructor (
         color: string,

@@ -7,6 +7,7 @@ class Rook {
     possibleMoves: number [][][];
     possibleAttacks: number [][][];
     enPassantAllowed: boolean;
+    hasMadeFirstMove: boolean;
 
     constructor (
         color: string,
@@ -18,6 +19,7 @@ class Rook {
         this.coords = coords;
         this.key = key;
         this.type = 'rook';
+        this.hasMadeFirstMove = false;
     };
 
     updatePossibleMoves() {

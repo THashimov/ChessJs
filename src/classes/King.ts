@@ -7,6 +7,7 @@ class King {
     possibleMoves: number [][][];
     possibleAttacks: number [][][];
     enPassantAllowed: boolean;
+    hasMadeFirstMove: boolean;
 
     constructor (
         color: string,
@@ -18,6 +19,7 @@ class King {
         this.coords = coords;
         this.key = key;
         this.type = 'king';
+        this.hasMadeFirstMove = false;
     }
 
     updatePossibleMoves() {
