@@ -1,16 +1,15 @@
 import Board from './components/board';
 import ChessBoard from './classes/ChessBoard';
 import { useRef } from 'react';
+import GameFlowControl from './classes/gameFlowControl';
 
 function App() {
   const chessBoard = new ChessBoard();
-  const curPiece = useRef(undefined);
-  const prevPiece = useRef(undefined);
-  const whiteTurn = useRef(true);
+  const gameFlowControl = new GameFlowControl();
   
   return (
     <div className="home">
-      <Board chessBoard={chessBoard} curPiece={curPiece} whiteTurn={whiteTurn} prevPiece={prevPiece}/>
+      <Board chessBoard={chessBoard} gameFlowControl={gameFlowControl}/>
     </div>
   );
 }

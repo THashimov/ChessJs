@@ -11,16 +11,11 @@ import possibleMoves from "./possibleMoves";
 import movePiece from "./movePiece";
 import setEnPassant from "./setEnPassant";
 import presetBoard from "./presetBoard";
+import GameFlowControl from "../classes/gameFlowControl";
 
 interface BoardProps {
     chessBoard: ChessBoard;
-    curPiece: React.MutableRefObject<
-                Bishop | King | Knight | Pawn | Queen | Rook | undefined
-                >;
-    whiteTurn: React.MutableRefObject<boolean>;
-    prevPiece: React.MutableRefObject<
-                Bishop | King | Knight | Pawn | Queen | Rook | undefined
-                >;
+    gameFlowControl: GameFlowControl;
 }
  
 const Board: React.FC<BoardProps> = (prop) => {
@@ -42,7 +37,7 @@ const Board: React.FC<BoardProps> = (prop) => {
         ];
 
         const pieceClicked: Bishop | King | Knight | Pawn | Queen | Rook | null =
-        prop.whiteTurn.current ? 
+        prop.gameFlowControl.whiteTurn ? 
         getPieceClicked(src, coordsClicked, prop.chessBoard.whitePieces.pieces) :
         getPieceClicked(src, coordsClicked, prop.chessBoard.blackPieces.pieces);
 
@@ -53,12 +48,16 @@ const Board: React.FC<BoardProps> = (prop) => {
             e.target.parentNode.className.includes('canTake') ||
             e.target.className.includes('canTake')) {
             movePiece(e, prop)
-            prop.whiteTurn.current ? prop.whiteTurn.current = false : prop.whiteTurn.current = true;
+            prop.gameFlowControl.whiteTurn ? prop.gameFlowControl.whiteTurn = false : prop.gameFlowControl.whiteTurn = true;
             setEnPassant(prop);
         }
 
-        state ? setState(false) : setState(true)
+        if (prop.gameFlowControl.movesMade === 50) {
+            // Here we want to render a draw option
+            
+        }
 
+        state ? setState(false) : setState(true)
     };
 
     for (let i = 0; i < numberOfCells; i++) {

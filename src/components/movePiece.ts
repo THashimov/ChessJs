@@ -6,14 +6,14 @@ const movePiece = (e, prop) => {
     let coordClicked = [row, col]
 
     /// If we have moved a king and the king can castle, check if the move is a castling move or not
-    if (prop.curPiece.current.type === 'king' && !prop.curPiece.current.hasMadeFirstMove) {
-        const playerColor = prop.whiteTurn.current ? 'whitePieces' : 'blackPieces';
+    if (prop.gameFlowControl.curPiece.type === 'king' && !prop.gameFlowControl.curPiece.hasMadeFirstMove) {
+        const playerColor = prop.gameFlowControl.whiteTurn ? 'whitePieces' : 'blackPieces';
 
-        if (col + 2 === prop.curPiece.current.coords[1]) {
+        if (col + 2 === prop.gameFlowControl.curPiece.coords[1]) {
             /// This means we have castled queen side
             prop.chessBoard[playerColor].pieces.rook[0].coords = [row, col + 1];
             prop.chessBoard[playerColor].pieces.rook[0].hasMadeFirstMove = true;
-        } else if (col - 2 === prop.curPiece.current.coords[1]) {
+        } else if (col - 2 === prop.gameFlowControl.curPiece.coords[1]) {
             /// This means we have castled king side
             prop.chessBoard[playerColor].pieces.rook[1].coords = [row, col - 1];
             prop.chessBoard[playerColor].pieces.rook[1].hasMadeFirstMove = true;
@@ -22,13 +22,13 @@ const movePiece = (e, prop) => {
 
     /// We check if the cell we clicked on is a canTake cell. If it isn't, we check the parent node as some cells have nested tags 
     const classOfCellClicked = e.target.classList.value.includes('canTake') ? e.target.classList.value : e.target.parentNode.classList.value;
-    prop.curPiece.current.coords = coordClicked;
+    prop.gameFlowControl.curPiece.coords = coordClicked;
 
 
     if (classOfCellClicked.includes('canTake')) {
         /// If en passant is allowed then we change the coord clicked so we delete the pawn next to us
-        if (prop.prevPiece.current && prop.prevPiece.current.enPassantAllowed) {
-            prop.whiteTurn.current ? coordClicked[0] += 1 : coordClicked[0] -= 1;
+        if (prop.gameFlowControl.prevPiece && prop.gameFlowControl.prevPiece.enPassantAllowed) {
+            prop.gameFlowControl.whiteTurn ? coordClicked[0] += 1 : coordClicked[0] -= 1;
         } 
 
         const typeOfPieceAttacked: string = prop.chessBoard.cells[coordClicked[0]][coordClicked[1]].type;
@@ -37,17 +37,24 @@ const movePiece = (e, prop) => {
 
         for (const piece in prop.chessBoard[colorOfPieceAttacked].pieces[typeOfPieceAttacked]) {
             if (prop.chessBoard[colorOfPieceAttacked].pieces[typeOfPieceAttacked][piece].key === keyOfPieceAttacked) {
-                delete prop.chessBoard[colorOfPieceAttacked].pieces[typeOfPieceAttacked][piece]
+                delete prop.chessBoard[colorOfPieceAttacked].pieces[typeOfPieceAttacked][piece];
+                prop.gameFlowControl.resetMoves();
             };
         }
 
-        if (prop.prevPiece.current && prop.prevPiece.current.enPassantAllowed) {
-            prop.whiteTurn.current ? coordClicked[0] -= 1 : coordClicked[0] += 1;
+        if (prop.gameFlowControl.prevPiece && prop.gameFlowControl.prevPiece.enPassantAllowed) {
+            prop.gameFlowControl.whiteTurn ? coordClicked[0] -= 1 : coordClicked[0] += 1;
         } 
     };
 
-    prop.prevPiece.current = undefined;
-    prop.curPiece.current.hasMadeFirstMove = true;
+    if (prop.gameFlowControl.curPiece.type === 'pawn') {
+        prop.gameFlowControl.resetMoves();
+    } else {
+        prop.gameFlowControl.updateMoves();
+    }
+
+    prop.gameFlowControl.prevPiece = undefined;
+    prop.gameFlowControl.curPiece.hasMadeFirstMove = true;
     
     [...document.querySelectorAll('.possibleMove')].map(e => e.classList.remove('possibleMove'));
     [...document.querySelectorAll('.canTake')].map(e => e.classList.remove('canTake'));
