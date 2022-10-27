@@ -6,8 +6,9 @@ const canCastle = (prop) => {
     const row = prop.gameFlowControl.curPiece.coords[0];
     let col = prop.gameFlowControl.curPiece.coords[1] - 1;
 
-    /// Scan left from king column to check for pieces
     if (!prop.gameFlowControl.curPiece.hasMadeFirstMove) {
+
+        /// Scan left from king column to check for pieces
         while (col >= 0) {
             if (prop.chessBoard.cells[row][col] === null) {
             } else {

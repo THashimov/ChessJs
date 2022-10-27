@@ -22,13 +22,32 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, prop
     prop.gameFlowControl.curPiece = piece;
     
     /// We select a king, we check if the king can castle and push the new coords to the possible moves
+    /// We can also check if any of the possible moves will put the king into check and then remove them
     if (piece.type === 'king') {
         const newMoves = canCastle(prop);
         if (newMoves) {
             for (const i in newMoves) {
                 piece.possibleMoves.push(newMoves[i]);
+            };
+        };
+
+        const possibleMoves = piece.possibleMoves;
+
+
+        /// All possible moves are nested as blocks for each direction the piece can move in
+        /// 
+
+        for (const type in prop.chessBoard[`${oppColor}Pieces`].pieces) {
+            for (const piece in prop.chessBoard[`${oppColor}Pieces`].pieces[type]) {
+                for (const moves in prop.chessBoard[`${oppColor}Pieces`].pieces[type][piece].possibleMoves) {
+                    for (const move in prop.chessBoard[`${oppColor}Pieces`].pieces[type][piece].possibleMoves[moves]) {
+                        // console.log(prop.chessBoard[`${oppColor}Pieces`].pieces[type][piece].possibleMoves[moves][move])
+                        // console.log(possibleMoves[0])
+                    }
+                }
             }
         }
+
     }
     
 

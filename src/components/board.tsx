@@ -24,7 +24,8 @@ const Board: React.FC<BoardProps> = (prop) => {
     // Change state to force a re-render
     const [state, setState] = useState<boolean>(false);
     const [showDrawMenu, setShowDrawMenu] = useState<boolean>(false);
-    // presetBoard(prop);
+
+    presetBoard(prop);
 
     let boardCells: JSX.Element [][] = [];
     const numberOfCells: number = 8;
