@@ -33,16 +33,22 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, prop
 
         const possibleMoves = piece.possibleMoves;
 
-
-        /// All possible moves are nested as blocks for each direction the piece can move in
-        /// 
-
+        // This kind of works but not really
         for (const type in prop.chessBoard[`${oppColor}Pieces`].pieces) {
             for (const piece in prop.chessBoard[`${oppColor}Pieces`].pieces[type]) {
                 for (const moves in prop.chessBoard[`${oppColor}Pieces`].pieces[type][piece].possibleMoves) {
                     for (const move in prop.chessBoard[`${oppColor}Pieces`].pieces[type][piece].possibleMoves[moves]) {
-                        // console.log(prop.chessBoard[`${oppColor}Pieces`].pieces[type][piece].possibleMoves[moves][move])
-                        // console.log(possibleMoves[0])
+                        /// We get an array of where the enemy can move
+                        const enemyPath = prop.chessBoard[`${oppColor}Pieces`].pieces[type][piece].possibleMoves[moves][move];
+                        // Now we can iterate over every move the king can make and see if it matches
+                        for (const i in possibleMoves) {
+                            for (const j in possibleMoves[i]) {
+                                for (const colRow in possibleMoves[i][j]) 
+                                    if (possibleMoves[i][j][colRow] === enemyPath[colRow]) {
+                                        return;
+                                    };
+                            };
+                        };
                     }
                 }
             }
