@@ -19,6 +19,7 @@ class Bishop {
         this.coords = coords;
         this.key = key;
         this.type = 'bishop';
+        this.hasMadeFirstMove = true;
     }
 
     updatePossibleMoves () {

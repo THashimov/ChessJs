@@ -1,10 +1,10 @@
 import Bishop from "../classes/Bishop";
+import ChessBoard from "../classes/ChessBoard";
 import King from "../classes/King";
 import Knight from "../classes/Knight";
 import Pawn from "../classes/Pawn";
 import Queen from "../classes/Queen";
 import Rook from "../classes/Rook";
-import canCastle from "./canCastle";
 
 const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, prop) => {
     /// Remove all of the cell highlights
@@ -21,41 +21,12 @@ const possibleMoves = (piece: Bishop | King | Knight | Pawn | Queen | Rook, prop
 
     prop.gameFlowControl.curPiece = piece;
     
-    /// We select a king, we check if the king can castle and push the new coords to the possible moves
-    /// We can also check if any of the possible moves will put the king into check and then remove them
+    /// If we select a king, we check if the king can castle and push the new coords to the possible moves on the king class
     if (piece.type === 'king') {
-        const newMoves = canCastle(prop);
-        if (newMoves) {
-            for (const i in newMoves) {
-                piece.possibleMoves.push(newMoves[i]);
-            };
-        };
+        prop.chessBoard[`${piece.color}Pieces`].pieces.king[0].checkPossibleMoves(prop);
+    };
 
-        const possibleMoves = piece.possibleMoves;
 
-        // This kind of works but not really
-        for (const type in prop.chessBoard[`${oppColor}Pieces`].pieces) {
-            for (const piece in prop.chessBoard[`${oppColor}Pieces`].pieces[type]) {
-                for (const moves in prop.chessBoard[`${oppColor}Pieces`].pieces[type][piece].possibleMoves) {
-                    for (const move in prop.chessBoard[`${oppColor}Pieces`].pieces[type][piece].possibleMoves[moves]) {
-                        /// We get an array of where the enemy can move
-                        const enemyPath = prop.chessBoard[`${oppColor}Pieces`].pieces[type][piece].possibleMoves[moves][move];
-                        // Now we can iterate over every move the king can make and see if it matches
-                        for (const i in possibleMoves) {
-                            for (const j in possibleMoves[i]) {
-                                for (const colRow in possibleMoves[i][j]) 
-                                    if (possibleMoves[i][j][colRow] === enemyPath[colRow]) {
-                                        return;
-                                    };
-                            };
-                        };
-                    }
-                }
-            }
-        }
-
-    }
-    
 
     for (const i in piece.possibleMoves) {
         for (const j in piece.possibleMoves[i]) {

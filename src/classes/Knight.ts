@@ -19,6 +19,7 @@ class Knight {
         this.coords = coords;
         this.key = key;
         this.type = 'knight';
+        this.hasMadeFirstMove = true;
     }
 
     updatePossibleMoves() {

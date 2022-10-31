@@ -41,6 +41,10 @@
     background-color: green;
 }
 
+.test {
+    background-color: black;
+}
+
 .canTake {
     background-color: yellow;
 }

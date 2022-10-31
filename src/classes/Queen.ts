@@ -19,6 +19,7 @@ class Queen {
         this.coords = coords;
         this.key = key;
         this.type = 'queen';
+        this.hasMadeFirstMove = true;
     };
 
     updatePossibleMoves() {
